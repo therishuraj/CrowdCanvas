@@ -60,6 +60,8 @@ router.post('/signin', async (req, res) => {
 const createTaskSchema = z.object({
   title: z.string().optional(),
   signature: z.string(),
+  totalSol: z.number().positive().optional(),
+  votesRequired: z.number().int().positive().optional(),
   options: z.array(z.object({
     imageUrl: z.string()
   })).min(2, 'Minimum 2 options required')
@@ -176,26 +178,37 @@ router.post('/task', authMiddleware, async (req: AuthRequest, res) => {
     }
 
     // Validate transaction amount
-    if (recipientBalanceChange !== config.taskAmount) {
+    const expectedAmount = Math.floor((body.totalSol || 0.1) * 1000000000);
+    if (recipientBalanceChange !== expectedAmount) {
       console.log('\n❌ AMOUNT MISMATCH!');
-      console.log('Expected amount:', config.taskAmount, 'lamports');
+      console.log('Expected amount:', expectedAmount, 'lamports');
       console.log('Actual amount:', recipientBalanceChange, 'lamports');
       console.log('═══════════════════════════════════════════════════════\n');
       return res.status(400).json({ 
         error: 'Incorrect transaction amount',
-        expected: config.taskAmount,
+        expected: expectedAmount,
         received: recipientBalanceChange
       });
     }
 
+    // Calculate amount per worker
+    const votesRequired = body.votesRequired || 10;
+    const amountPerWorker = Math.floor(expectedAmount / votesRequired);
+
     // Create task
     console.log('\n✅ ALL VALIDATIONS PASSED');
     console.log('Creating task in database...');
+    console.log('Total Amount:', expectedAmount, 'lamports');
+    console.log('Votes Required:', votesRequired);
+    console.log('Amount per Worker:', amountPerWorker, 'lamports');
     const task = await Task.create({
       title: body.title || 'Select the most clickable thumbnail',
       userId: req.userId,
       signature: body.signature,
-      amount: config.taskAmount,
+      amount: amountPerWorker,
+      totalAmount: expectedAmount,
+      votesRequired: votesRequired,
+      votesReceived: 0,
       options: body.options
     });
 

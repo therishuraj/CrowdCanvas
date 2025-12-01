@@ -41,6 +41,9 @@ export interface ITask extends Document {
   userId: mongoose.Types.ObjectId;
   signature: string;
   amount: number;
+  totalAmount: number;
+  votesRequired: number;
+  votesReceived: number;
   done: boolean;
   options: IOption[];
   createdAt: Date;
@@ -55,6 +58,9 @@ const taskSchema = new Schema<ITask>({
   userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   signature: { type: String, required: true, unique: true },
   amount: { type: Number, required: true },
+  totalAmount: { type: Number, required: true },
+  votesRequired: { type: Number, required: true },
+  votesReceived: { type: Number, default: 0 },
   done: { type: Boolean, default: false },
   options: [optionSchema],
   createdAt: { type: Date, default: Date.now }

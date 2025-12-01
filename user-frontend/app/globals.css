@@ -3,5 +3,28 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-50 text-gray-900;
+  @apply bg-solana-dark text-white;
+}
+
+/* Wallet Adapter Button Height */
+.wallet-adapter-button {
+  height: 2.5rem !important;
+  min-height: 2.5rem !important;
+}
+
+/* Solana-inspired scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-solana-darker;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-solana-medium-blue rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-solana-light-blue;
 }
