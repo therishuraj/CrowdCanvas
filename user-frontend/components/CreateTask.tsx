@@ -18,6 +18,8 @@ export default function CreateTask() {
   const { connection } = useConnection();
   const router = useRouter();
   const [title, setTitle] = useState('');
+  const [totalSol, setTotalSol] = useState('0.1');
+  const [votesRequired, setVotesRequired] = useState('10');
   const [options, setOptions] = useState<TaskOption[]>([{ imageUrl: '' }, { imageUrl: '' }]);
   const [signature, setSignature] = useState('');
   const [loading, setLoading] = useState(false);
@@ -44,13 +46,26 @@ export default function CreateTask() {
       return;
     }
 
+    const solAmount = parseFloat(totalSol);
+    if (isNaN(solAmount) || solAmount <= 0) {
+      alert('Please enter a valid SOL amount');
+      return;
+    }
+
+    const votes = parseInt(votesRequired);
+    if (isNaN(votes) || votes <= 0) {
+      alert('Please enter a valid number of votes');
+      return;
+    }
+
     try {
       setLoading(true);
+      const lamports = Math.floor(solAmount * 1000000000);
       const transaction = new Transaction().add(
         SystemProgram.transfer({
           fromPubkey: publicKey,
         toPubkey: new PublicKey('5SNxuX1yH4HC3STo7uh1hzdAYix54x5nCvhENfTBbLme'),
-          lamports: 100000000, // 0.1 SOL
+          lamports,
         })
       );
 
@@ -72,6 +87,8 @@ export default function CreateTask() {
 
   const resetForm = () => {
     setTitle('');
+    setTotalSol('0.1');
+    setVotesRequired('10');
     setOptions([{ imageUrl: '' }, { imageUrl: '' }]);
     setSignature('');
     setLoading(false);
@@ -94,6 +111,8 @@ export default function CreateTask() {
       const response = await axios.post(`${BACKEND_URL}/v1/user/task`, {
         title: title || undefined,
         signature,
+        totalSol: parseFloat(totalSol),
+        votesRequired: parseInt(votesRequired),
         options
       }, {
         headers: { Authorization: `Bearer ${token}` }
@@ -118,11 +137,11 @@ export default function CreateTask() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
-      <h2 className="text-3xl font-bold mb-8">Create a New Task</h2>
+      <h2 className="text-3xl font-bold mb-8 bg-solana-gradient bg-clip-text text-transparent">Create a New Task</h2>
 
-      <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
+      <div className="bg-solana-dark-blue rounded-xl shadow-2xl border border-solana-medium-blue p-6 space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-300 mb-2">
             Task Title (Optional)
           </label>
           <input
@@ -130,12 +149,51 @@ export default function CreateTask() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Select the most clickable thumbnail"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+            className="w-full px-4 py-2 bg-solana-darker border border-solana-medium-blue rounded-lg focus:ring-2 focus:ring-solana-purple focus:border-transparent text-white placeholder-gray-500"
           />
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Total SOL Amount
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              min="0.01"
+              value={totalSol}
+              onChange={(e) => setTotalSol(e.target.value)}
+              placeholder="0.1"
+              className="w-full px-4 py-2 bg-solana-darker border border-solana-medium-blue rounded-lg focus:ring-2 focus:ring-solana-purple focus:border-transparent text-white placeholder-gray-500"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Number of Votes Required
+            </label>
+            <input
+              type="number"
+              step="1"
+              min="1"
+              value={votesRequired}
+              onChange={(e) => setVotesRequired(e.target.value)}
+              placeholder="10"
+              className="w-full px-4 py-2 bg-solana-darker border border-solana-medium-blue rounded-lg focus:ring-2 focus:ring-solana-purple focus:border-transparent text-white placeholder-gray-500"
+            />
+          </div>
+        </div>
+
+        {totalSol && votesRequired && parseFloat(totalSol) > 0 && parseInt(votesRequired) > 0 && (
+          <div className="p-4 bg-solana-purple/10 border border-solana-purple/30 rounded-lg">
+            <p className="text-sm text-solana-blue">
+              💰 Payment per worker: <strong>{(parseFloat(totalSol) / parseInt(votesRequired)).toFixed(4)} SOL</strong>
+            </p>
+          </div>
+        )}
+
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-4">
+          <label className="block text-sm font-medium text-gray-300 mb-4">
             Options (Minimum 2)
           </label>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -148,7 +206,7 @@ export default function CreateTask() {
                 {options.length > 2 && (
                   <button
                     onClick={() => removeOption(index)}
-                    className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                    className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
                   >
                     Remove Option
                   </button>
@@ -158,7 +216,7 @@ export default function CreateTask() {
           </div>
           <button
             onClick={addOption}
-            className="mt-4 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+            className="mt-4 px-4 py-2 bg-solana-medium-blue text-white rounded-lg hover:bg-solana-light-blue transition-colors"
           >
             + Add Option
           </button>
@@ -168,22 +226,22 @@ export default function CreateTask() {
           <button
             onClick={handlePayment}
             disabled={loading || !publicKey}
-            className="flex-1 px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="flex-1 px-6 py-3 bg-solana-purple text-white rounded-lg font-semibold hover:bg-opacity-90 disabled:bg-gray-600 disabled:cursor-not-allowed transition-all"
           >
-            {loading ? 'Processing...' : 'Pay 0.1 SOL'}
+            {loading ? 'Processing...' : `Pay ${totalSol} SOL`}
           </button>
           <button
             onClick={handleSubmit}
             disabled={loading || !signature}
-            className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="flex-1 px-6 py-3 bg-solana-blue text-solana-dark rounded-lg font-semibold hover:bg-opacity-90 disabled:bg-gray-600 disabled:cursor-not-allowed transition-all"
           >
             {loading ? 'Creating...' : 'Create Task'}
           </button>
         </div>
 
         {signature && (
-          <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p className="text-sm text-green-800">
+          <div className="p-4 bg-green-900/30 border border-green-500/30 rounded-lg">
+            <p className="text-sm text-green-400">
               Payment completed! Transaction: {signature.slice(0, 20)}...
             </p>
           </div>

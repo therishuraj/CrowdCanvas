@@ -23,14 +23,31 @@ export default function TaskWorker() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [currentWallet, setCurrentWallet] = useState<string | null>(null);
 
   useEffect(() => {
+    const walletAddress = publicKey?.toString() || null;
+    
     if (publicKey) {
-      fetchAvailableTasks();
+      // If wallet changed, reload tasks
+      if (currentWallet && walletAddress && currentWallet !== walletAddress) {
+        setCurrentWallet(walletAddress);
+        setAvailableTasks([]);
+        setCurrentIndex(0);
+        fetchAvailableTasks();
+      } else if (!currentWallet) {
+        setCurrentWallet(walletAddress);
+        fetchAvailableTasks();
+      } else {
+        fetchAvailableTasks();
+      }
     } else {
+      // Wallet disconnected
       setAvailableTasks([]);
+      setCurrentWallet(null);
       setLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicKey]);
 
   const fetchAvailableTasks = async () => {
@@ -118,27 +135,27 @@ export default function TaskWorker() {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-12 text-center">
-        <p className="text-gray-600">Loading task...</p>
+      <div className="bg-solana-dark-blue rounded-xl shadow-2xl border border-solana-medium-blue p-12 text-center">
+        <p className="text-gray-400">Loading task...</p>
       </div>
     );
   }
 
   if (!publicKey) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-12 text-center">
-        <p className="text-gray-600 text-lg">Please connect your wallet to start working</p>
+      <div className="bg-solana-dark-blue rounded-xl shadow-2xl border border-solana-medium-blue p-12 text-center">
+        <p className="text-gray-300 text-lg">Please connect your wallet to start working</p>
       </div>
     );
   }
 
   if (!currentTask) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-12 text-center">
-        <p className="text-gray-600 text-lg mb-4">No tasks available at the moment</p>
+      <div className="bg-solana-dark-blue rounded-xl shadow-2xl border border-solana-medium-blue p-12 text-center">
+        <p className="text-gray-300 text-lg mb-4">No tasks available at the moment</p>
         <button
           onClick={fetchAvailableTasks}
-          className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+          className="px-6 py-2 bg-solana-purple text-white rounded-lg hover:bg-opacity-90 transition-all"
         >
           Refresh
         </button>
@@ -147,18 +164,18 @@ export default function TaskWorker() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-8">
+    <div className="bg-solana-dark-blue rounded-xl shadow-2xl border border-solana-medium-blue p-8">
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold mb-2">{currentTask.title}</h2>
-          <p className="text-gray-600">
-            Reward: <span className="font-semibold text-purple-600">
+          <h2 className="text-2xl font-bold mb-2 text-white">{currentTask.title}</h2>
+          <p className="text-gray-300">
+            Reward: <span className="font-semibold text-solana-blue">
               {(currentTask.amount / 1_000_000_000).toFixed(6)} SOL
             </span>
           </p>
         </div>
         {availableTasks.length > 1 && (
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-gray-400 bg-solana-darker px-4 py-2 rounded-lg">
             Task {currentIndex + 1} of {availableTasks.length}
           </div>
         )}
@@ -170,15 +187,15 @@ export default function TaskWorker() {
             key={option.id}
             onClick={() => handleOptionClick(option.id)}
             disabled={submitting}
-            className="relative group overflow-hidden rounded-lg border-2 border-gray-200 hover:border-purple-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="relative group overflow-hidden rounded-lg border-2 border-solana-medium-blue hover:border-solana-purple transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <img
               src={option.imageUrl}
               alt="Option"
               className="w-full h-64 object-cover"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all flex items-center justify-center">
-              <span className="text-white font-bold text-xl opacity-0 group-hover:opacity-100 transition-all">
+            <div className="absolute inset-0 bg-gradient-to-t from-solana-purple/80 to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
+              <span className="text-white font-bold text-xl">
                 {submitting ? 'Submitting...' : 'Select'}
               </span>
             </div>
@@ -192,7 +209,7 @@ export default function TaskWorker() {
           <button
             onClick={handlePrevious}
             disabled={currentIndex === 0}
-            className="flex items-center gap-2 px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-2 px-6 py-3 bg-solana-medium-blue text-white rounded-lg hover:bg-solana-light-blue disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -202,7 +219,7 @@ export default function TaskWorker() {
           <button
             onClick={handleNext}
             disabled={currentIndex === availableTasks.length - 1}
-            className="flex items-center gap-2 px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-2 px-6 py-3 bg-solana-medium-blue text-white rounded-lg hover:bg-solana-light-blue disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Next Task
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">

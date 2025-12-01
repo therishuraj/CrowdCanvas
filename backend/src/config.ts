@@ -25,7 +25,7 @@ export const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
   
   // Business Logic
-  totalDecimals: 1000000,
+  totalDecimals: 1000000000, // 1 SOL = 1,000,000,000 lamports
   taskAmount: 100000000, // 0.1 SOL in lamports
   totalSubmissions: 100,
   parentWalletAddress: '5SNxuX1yH4HC3STo7uh1hzdAYix54x5nCvhENfTBbLme'

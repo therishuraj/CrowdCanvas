@@ -23,14 +23,30 @@ export default function HomePage() {
       <Appbar />
       <Hero />
       
-      {/* Toggle Button */}
+      {/* Navigation Buttons */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <button
-          onClick={() => setShowMyTasks(!showMyTasks)}
-          className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium"
-        >
-          {showMyTasks ? 'Create New Task' : 'My Tasks'}
-        </button>
+        <div className="flex gap-2 bg-solana-darker p-2 rounded-lg border border-solana-medium-blue">
+          <button
+            onClick={() => setShowMyTasks(false)}
+            className={`flex-1 px-6 py-3 rounded-lg transition-all font-bold ${
+              !showMyTasks 
+                ? 'bg-solana-gradient text-solana-dark shadow-lg' 
+                : 'text-gray-400 hover:text-white'
+            }`}
+          >
+            Create Task
+          </button>
+          <button
+            onClick={() => setShowMyTasks(true)}
+            className={`flex-1 px-6 py-3 rounded-lg transition-all font-bold ${
+              showMyTasks 
+                ? 'bg-solana-gradient text-solana-dark shadow-lg' 
+                : 'text-gray-400 hover:text-white'
+            }`}
+          >
+            My Tasks
+          </button>
+        </div>
       </div>
 
       {/* Conditional Rendering */}

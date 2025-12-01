@@ -53,21 +53,21 @@ export default function TaskList() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="bg-solana-dark-blue rounded-xl shadow-2xl border border-solana-medium-blue p-6">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">My Tasks</h2>
+          <h2 className="text-2xl font-bold bg-solana-gradient bg-clip-text text-transparent">My Tasks</h2>
           <button
             onClick={fetchTasks}
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            className="px-4 py-2 bg-solana-purple text-white rounded-lg hover:bg-opacity-90 transition-all"
           >
             Refresh
           </button>
         </div>
 
         {loading ? (
-          <div className="text-center py-8 text-gray-500">Loading tasks...</div>
+          <div className="text-center py-8 text-gray-400">Loading tasks...</div>
         ) : tasks.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-gray-400">
             No tasks created yet. Create your first task above!
           </div>
         ) : (
@@ -75,24 +75,24 @@ export default function TaskList() {
             {tasks.map((task) => (
               <div
                 key={task._id}
-                className="border border-gray-200 rounded-lg p-4 hover:border-purple-500 transition-colors cursor-pointer"
+                className="border border-solana-medium-blue bg-solana-darker rounded-lg p-4 hover:border-solana-purple transition-all cursor-pointer"
                 onClick={() => viewTask(task._id)}
               >
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900">{task.title}</h3>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <h3 className="text-lg font-semibold text-white">{task.title}</h3>
+                    <p className="text-sm text-gray-400 mt-1">
                       Created: {new Date(task.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-purple-600">
+                    <div className="text-lg font-bold text-solana-blue">
                       {(task.amount / 1000000000).toFixed(4)} SOL
                     </div>
                     <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium mt-2 ${
                       task.done 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-yellow-100 text-yellow-800'
+                        ? 'bg-green-900/30 text-green-400 border border-green-500/30' 
+                        : 'bg-yellow-900/30 text-yellow-400 border border-yellow-500/30'
                     }`}>
                       {task.done ? 'Completed' : 'In Progress'}
                     </div>

@@ -72,7 +72,7 @@ router.get('/nextTask', workerAuthMiddleware, async (req: AuthRequest, res) => {
       tasks: tasks.map(task => ({
         id: task._id.toString(),
         title: task.title,
-        amount: task.amount / config.totalSubmissions,
+        amount: task.amount,
         options: task.options.map((option: any) => ({
           id: option._id.toString(),
           imageUrl: option.imageUrl
@@ -99,41 +99,45 @@ router.post('/submission', workerAuthMiddleware, async (req: AuthRequest, res) =
     console.log('Selected Option:', selection);
     console.log('───────────────────────────────────────────────────────');
 
-    // Verify this is the worker's next task
-    const submittedTaskIds = await Submission.find({ workerId }).distinct('taskId');
-    console.log('Worker has already submitted to', submittedTaskIds.length, 'tasks');
-    
-    const nextTask = await Task.findOne({
-      done: false,
-      _id: { $nin: submittedTaskIds }
-    }).sort({ createdAt: 1 });
-
-    if (!nextTask || nextTask._id.toString() !== taskId) {
-      console.log('❌ INVALID TASK SUBMISSION');
-      console.log('Expected next task:', nextTask?._id);
-      console.log('Received task:', taskId);
+    // Check if worker has already submitted this task
+    const existingSubmission = await Submission.findOne({ workerId, taskId });
+    if (existingSubmission) {
+      console.log('❌ DUPLICATE SUBMISSION');
+      console.log('Worker has already submitted to this task');
       console.log('═══════════════════════════════════════════════════════\n');
-      return res.status(400).json({ error: 'Invalid task submission' });
+      return res.status(400).json({ error: 'You have already submitted this task' });
+    }
+
+    // Get the task
+    const task = await Task.findById(taskId);
+    if (!task) {
+      console.log('❌ TASK NOT FOUND');
+      console.log('═══════════════════════════════════════════════════════\n');
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    if (task.done) {
+      console.log('❌ TASK ALREADY COMPLETED');
+      console.log('═══════════════════════════════════════════════════════\n');
+      return res.status(400).json({ error: 'This task is already completed' });
     }
 
     console.log('✅ Task validation passed');
-    console.log('Task:', nextTask.title);
-    console.log('Total task amount:', nextTask.amount, 'lamports');
+    console.log('Task:', task.title);
+    console.log('Amount per worker:', task.amount, 'lamports');
 
     // Validate option exists
-    const optionExists = nextTask.options.some((opt: any) => opt._id.toString() === selection);
+    const optionExists = task.options.some((opt: any) => opt._id.toString() === selection);
     if (!optionExists) {
       console.log('❌ INVALID OPTION');
       console.log('Selected:', selection);
-      console.log('Available options:', nextTask.options.map((o: any) => o._id.toString()));
+      console.log('Available options:', task.options.map((o: any) => o._id.toString()));
       console.log('═══════════════════════════════════════════════════════\n');
       return res.status(400).json({ error: 'Invalid option selected' });
     }
 
-    const amount = Math.floor(nextTask.amount / config.totalSubmissions);
+    const amount = task.amount;
     console.log('\n💰 PAYMENT CALCULATION:');
-    console.log('Task amount:', nextTask.amount, 'lamports');
-    console.log('Total submissions:', config.totalSubmissions);
     console.log('Amount per submission:', amount, 'lamports (', amount / 1000000000, 'SOL)');
     console.log('───────────────────────────────────────────────────────');
 
@@ -159,16 +163,18 @@ router.post('/submission', workerAuthMiddleware, async (req: AuthRequest, res) =
     console.log('Increase:', amount, 'lamports');
     console.log('───────────────────────────────────────────────────────');
 
-    // Check if task is complete
-    const submissionCount = await Submission.countDocuments({ taskId });
-    console.log('\n📊 TASK PROGRESS:');
-    console.log('Submissions:', submissionCount, '/', config.totalSubmissions);
+    // Increment votesReceived and check if task is complete
+    await Task.findByIdAndUpdate(taskId, { $inc: { votesReceived: 1 } });
+    const updatedTask = await Task.findById(taskId);
     
-    if (submissionCount >= config.totalSubmissions) {
+    console.log('\n📊 TASK PROGRESS:');
+    console.log('Votes Received:', updatedTask!.votesReceived, '/', updatedTask!.votesRequired);
+    
+    if (updatedTask!.votesReceived >= updatedTask!.votesRequired) {
       await Task.findByIdAndUpdate(taskId, { done: true });
       console.log('🎉 TASK COMPLETED! Marking as done.');
     } else {
-      console.log('Task still needs', config.totalSubmissions - submissionCount, 'more submissions');
+      console.log('Task still needs', updatedTask!.votesRequired - updatedTask!.votesReceived, 'more votes');
     }
     console.log('═══════════════════════════════════════════════════════\n');
 
@@ -185,7 +191,7 @@ router.post('/submission', workerAuthMiddleware, async (req: AuthRequest, res) =
       nextTask: nextAvailableTask ? {
         id: nextAvailableTask._id.toString(),
         title: nextAvailableTask.title,
-        amount: nextAvailableTask.amount / config.totalSubmissions,
+        amount: nextAvailableTask.amount,
         options: nextAvailableTask.options.map((option: any) => ({
           id: option._id.toString(),
           imageUrl: option.imageUrl
