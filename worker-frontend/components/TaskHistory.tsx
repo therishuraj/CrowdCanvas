@@ -10,11 +10,14 @@ interface Submission {
   taskId: {
     title: string;
     amount: number;
+    done: boolean;
   };
   option: {
     imageUrl: string;
   };
   amount: number;
+  isWinner: boolean | null;
+  wonBonus: boolean;
   createdAt: string;
 }
 
@@ -55,6 +58,10 @@ export default function TaskHistory() {
         headers: {
           Authorization: `Bearer ${token}`
         }
+      });
+      console.log("🔍 Fetched submissions:", submissionsResponse.data.submissions);
+      submissionsResponse.data.submissions?.forEach((sub: Submission) => {
+        console.log(`Task ${sub.taskId._id}: done=${sub.taskId.done}, isWinner=${sub.isWinner}, wonBonus=${sub.wonBonus}`);
       });
       setSubmissions(submissionsResponse.data.submissions || []);
 
@@ -143,10 +150,67 @@ export default function TaskHistory() {
                     <p className="text-sm text-gray-400 mt-1">
                       Completed: {new Date(submission.createdAt).toLocaleString()}
                     </p>
+                    
+                    {/* Payment Structure Info */}
+                    <div className="mt-3 space-y-2">
+                      <div className="flex items-center gap-2 text-xs">
+                        <span className="text-green-400">⚡ Instant (50%):</span>
+                        <span className="text-white font-semibold">
+                          {(submission.amount / 1000000000).toFixed(6)} SOL
+                        </span>
+                      </div>
+                      
+                      {submission.taskId.done ? (
+                        submission.isWinner !== null ? (
+                          <div className="flex items-center gap-2 text-xs">
+                            {submission.wonBonus ? (
+                              <>
+                                <span className="text-yellow-400">🏆 Bonus (50%):</span>
+                                <span className="text-yellow-400 font-semibold">
+                                  {(submission.amount / 1000000000).toFixed(6)} SOL ✓ Won!
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <span className="text-gray-500">❌ Bonus (50%):</span>
+                                <span className="text-gray-500 font-semibold">
+                                  Lost (minority vote)
+                                </span>
+                              </>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-2 text-xs">
+                            <span className="text-yellow-400">🏆 Bonus (50%):</span>
+                            <span className="text-yellow-400 font-semibold">
+                              Calculating results...
+                            </span>
+                          </div>
+                        )
+                      ) : (
+                        <div className="flex items-center gap-2 text-xs">
+                          <span className="text-yellow-400">🏆 Bonus (50%):</span>
+                          <span className="text-yellow-400 font-semibold">
+                            Pending task completion...
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className="text-right">
                     <div className="text-lg font-bold text-solana-blue">
-                      {(submission.amount / 1000000000).toFixed(4)} SOL
+                      Total: {((submission.amount * 2) / 1000000000).toFixed(6)} SOL
+                    </div>
+                    <div className="text-xs text-gray-400 mt-1">
+                      {submission.taskId.done ? (
+                        submission.wonBonus ? (
+                          <span className="text-green-400">✓ Full payment received</span>
+                        ) : (
+                          <span className="text-gray-500">Received 50% only</span>
+                        )
+                      ) : (
+                        <span className="text-yellow-400">In progress...</span>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CrowdCanvas Worker - Earn SOL",
+  title: "CrowdCanvas - Earn SOL",
   description: "Complete data labeling tasks and earn SOL",
 };
 

@@ -77,6 +77,10 @@ export default function TaskList() {
                 key={task._id}
                 className="border border-solana-medium-blue bg-solana-darker rounded-lg p-4 hover:border-solana-purple transition-all cursor-pointer"
                 onClick={() => viewTask(task._id)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  viewTask(task._id);
+                }}
               >
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
@@ -84,6 +88,26 @@ export default function TaskList() {
                     <p className="text-sm text-gray-400 mt-1">
                       Created: {new Date(task.createdAt).toLocaleDateString()}
                     </p>
+                    <div className="flex gap-2 mt-3">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push(`/task/${task._id}`);
+                        }}
+                        className="px-3 py-1 text-xs bg-solana-cyan/20 text-solana-cyan rounded-lg hover:bg-solana-cyan/30 transition-colors"
+                      >
+                        📊 View Results
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push(`/task/${task._id}/insights`);
+                        }}
+                        className="px-3 py-1 text-xs bg-solana-purple/20 text-solana-purple rounded-lg hover:bg-solana-purple/30 transition-colors"
+                      >
+                        📈 View Insights
+                      </button>
+                    </div>
                   </div>
                   <div className="text-right">
                     <div className="text-lg font-bold text-solana-blue">
@@ -96,6 +120,9 @@ export default function TaskList() {
                     }`}>
                       {task.done ? 'Completed' : 'In Progress'}
                     </div>
+                    <p className="text-xs text-gray-500 mt-2">
+                      {task.votesReceived}/{task.votesRequired} votes
+                    </p>
                   </div>
                 </div>
               </div>

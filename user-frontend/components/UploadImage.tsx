@@ -5,7 +5,7 @@ import axios from 'axios';
 import { BACKEND_URL } from '@/lib/config';
 
 interface UploadImageProps {
-  onImageAdded: (imageUrl: string) => void;
+  onImageAdded: (imageUrl: string, sizeInMB?: number) => void;
   image?: string;
 }
 
@@ -15,6 +15,9 @@ export function UploadImage({ onImageAdded, image }: UploadImageProps) {
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // Calculate file size in MB
+    const fileSizeInMB = file.size / (1024 * 1024);
 
     setUploading(true);
     try {
@@ -33,8 +36,8 @@ export function UploadImage({ onImageAdded, image }: UploadImageProps) {
           headers: { Authorization: `Bearer ${token}` }
         });
 
-        // Return the public URL
-        onImageAdded(response.data.url);
+        // Return the public URL and file size
+        onImageAdded(response.data.url, fileSizeInMB);
         setUploading(false);
       };
 

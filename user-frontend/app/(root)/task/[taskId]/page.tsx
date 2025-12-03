@@ -26,6 +26,7 @@ export default function TaskResultPage() {
   const [result, setResult] = useState<Record<string, OptionResult>>({});
   const [taskDetails, setTaskDetails] = useState<TaskDetails | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     fetchTaskResults();
@@ -84,12 +85,23 @@ export default function TaskResultPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Object.entries(result).map(([optionId, data]) => (
-            <div key={optionId} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <img 
-                src={data.option.imageUrl} 
-                alt="Option" 
-                className="w-full h-48 object-cover"
-              />
+            <div key={optionId} className="bg-white rounded-lg shadow-md overflow-hidden relative group">
+              <div className="relative">
+                <img 
+                  src={data.option.imageUrl} 
+                  alt="Option" 
+                  className="w-full h-48 object-cover"
+                />
+                <button
+                  onClick={() => setSelectedImage(data.option.imageUrl)}
+                  className="absolute top-2 right-2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-lg transition-all opacity-0 group-hover:opacity-100"
+                  title="View full image"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                  </svg>
+                </button>
+              </div>
               <div className="p-4">
                 <div className="text-2xl font-bold text-purple-600">
                   {data.count} votes
@@ -98,6 +110,31 @@ export default function TaskResultPage() {
             </div>
           ))}
         </div>
+
+        {/* Image Popup Modal */}
+        {selectedImage && (
+          <div 
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedImage(null)}
+          >
+            <div className="relative max-w-7xl max-h-[90vh] w-full">
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all z-10"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <img
+                src={selectedImage}
+                alt="Full size preview"
+                className="w-full h-full object-contain rounded-lg"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

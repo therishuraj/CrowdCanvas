@@ -164,10 +164,18 @@ export default function Appbar() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link href="/about">
-              <h1 className="text-2xl font-bold bg-solana-gradient bg-clip-text text-transparent cursor-pointer hover:opacity-80 transition-opacity">CrowdCanvas Worker</h1>
+              <h1 className="text-2xl font-bold bg-solana-gradient bg-clip-text text-transparent cursor-pointer hover:opacity-80 transition-opacity">CrowdCanvas</h1>
             </Link>
           </div>
           <div className="flex items-center gap-4">
+            {isSignedIn && (
+              <Link 
+                href="/insights"
+                className="h-10 px-4 bg-solana-dark-blue text-white rounded-lg hover:bg-solana-medium-blue transition-colors flex items-center text-sm"
+              >
+                📈 Insights
+              </Link>
+            )}
             {publicKey && (
               <div className="h-10 flex items-center text-sm bg-solana-dark-blue px-4 rounded-lg border border-solana-medium-blue">
                 <span className="text-gray-400">Wallet: </span>

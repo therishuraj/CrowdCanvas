@@ -24,6 +24,7 @@ export default function TaskWorker() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [currentWallet, setCurrentWallet] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const walletAddress = publicKey?.toString() || null;
@@ -165,43 +166,113 @@ export default function TaskWorker() {
 
   return (
     <div className="bg-solana-dark-blue rounded-xl shadow-2xl border border-solana-medium-blue p-8">
-      <div className="mb-6 flex justify-between items-center">
-        <div>
-          <h2 className="text-2xl font-bold mb-2 text-white">{currentTask.title}</h2>
-          <p className="text-gray-300">
-            Reward: <span className="font-semibold text-solana-blue">
-              {(currentTask.amount / 1_000_000_000).toFixed(6)} SOL
-            </span>
-          </p>
-        </div>
-        {availableTasks.length > 1 && (
-          <div className="text-sm text-gray-400 bg-solana-darker px-4 py-2 rounded-lg">
-            Task {currentIndex + 1} of {availableTasks.length}
+      <div className="mb-6 space-y-4">
+        <div className="flex justify-between items-center">
+          <div>
+            <h2 className="text-2xl font-bold mb-2 text-white">{currentTask.title}</h2>
+            <p className="text-gray-300">
+              Total Reward: <span className="font-semibold text-solana-blue">
+                {(currentTask.amount / 1_000_000_000).toFixed(6)} SOL
+              </span>
+            </p>
           </div>
-        )}
+          {availableTasks.length > 1 && (
+            <div className="text-sm text-gray-400 bg-solana-darker px-4 py-2 rounded-lg">
+              Task {currentIndex + 1} of {availableTasks.length}
+            </div>
+          )}
+        </div>
+
+        {/* Payment Structure Info */}
+        <div className="bg-gradient-to-r from-green-900/20 to-yellow-900/20 border border-green-500/30 rounded-lg p-4">
+          <div className="text-sm font-semibold text-green-400 mb-3">💰 Payment Structure:</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="bg-solana-darker/50 p-3 rounded-lg border border-green-500/30">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-2xl">⚡</span>
+                <span className="text-xs text-gray-400">Instant Payment</span>
+              </div>
+              <div className="text-xl font-bold text-green-400">
+                {((currentTask.amount / 1_000_000_000) / 2).toFixed(6)} SOL
+              </div>
+              <div className="text-xs text-gray-500 mt-1">Paid immediately when you vote</div>
+            </div>
+            <div className="bg-solana-darker/50 p-3 rounded-lg border border-yellow-500/30">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-2xl">🏆</span>
+                <span className="text-xs text-gray-400">Bonus (if you win)</span>
+              </div>
+              <div className="text-xl font-bold text-yellow-400">
+                {((currentTask.amount / 1_000_000_000) / 2).toFixed(6)} SOL
+              </div>
+              <div className="text-xs text-gray-500 mt-1">Only if your choice is in majority</div>
+            </div>
+          </div>
+          <div className="mt-3 text-xs text-center text-gray-400 bg-solana-darker/30 p-2 rounded">
+            ℹ️ You get 50% now + 50% bonus if your vote matches the majority
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         {currentTask.options.map((option) => (
-          <button
-            key={option.id}
-            onClick={() => handleOptionClick(option.id)}
-            disabled={submitting}
-            className="relative group overflow-hidden rounded-lg border-2 border-solana-medium-blue hover:border-solana-purple transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <img
-              src={option.imageUrl}
-              alt="Option"
-              className="w-full h-64 object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-solana-purple/80 to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
-              <span className="text-white font-bold text-xl">
-                {submitting ? 'Submitting...' : 'Select'}
-              </span>
-            </div>
-          </button>
+          <div key={option.id} className="relative group">
+            <button
+              onClick={() => handleOptionClick(option.id)}
+              disabled={submitting}
+              className="relative w-full overflow-hidden rounded-lg border-2 border-solana-medium-blue hover:border-solana-purple transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <img
+                src={option.imageUrl}
+                alt="Option"
+                className="w-full h-64 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-solana-purple/80 to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
+                <span className="text-white font-bold text-xl">
+                  {submitting ? 'Submitting...' : 'Select'}
+                </span>
+              </div>
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImage(option.imageUrl);
+              }}
+              className="absolute top-2 right-2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-lg transition-all z-10"
+              title="View full image"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+              </svg>
+            </button>
+          </div>
         ))}
       </div>
+
+      {/* Image Popup Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-7xl max-h-[90vh] w-full">
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all z-10"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <img
+              src={selectedImage}
+              alt="Full size preview"
+              className="w-full h-full object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Navigation Buttons */}
       {availableTasks.length > 1 && (

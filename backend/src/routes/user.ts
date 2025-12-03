@@ -64,7 +64,10 @@ const createTaskSchema = z.object({
   votesRequired: z.number().int().positive().optional(),
   options: z.array(z.object({
     imageUrl: z.string()
-  })).min(2, 'Minimum 2 options required')
+  })).min(2, 'Minimum 2 options required'),
+  platformFee: z.number().optional(),
+  gasFee: z.number().optional(),
+  totalAmount: z.number().optional()
 });
 
 router.post('/task', authMiddleware, async (req: AuthRequest, res) => {
@@ -177,36 +180,49 @@ router.post('/task', authMiddleware, async (req: AuthRequest, res) => {
       });
     }
 
-    // Validate transaction amount
-    const expectedAmount = Math.floor((body.totalSol || 0.1) * 1000000000);
+    // Validate transaction amount (includes worker payment + platform fee)
+    const workerPaymentLamports = Math.floor((body.totalSol || 0.1) * 1000000000);
+    const platformFeeLamports = Math.floor((body.platformFee || 0) * 1000000000);
+    const expectedAmount = workerPaymentLamports + platformFeeLamports;
+    
     if (recipientBalanceChange !== expectedAmount) {
       console.log('\n❌ AMOUNT MISMATCH!');
-      console.log('Expected amount:', expectedAmount, 'lamports');
+      console.log('Worker payment:', workerPaymentLamports, 'lamports');
+      console.log('Platform fee:', platformFeeLamports, 'lamports');
+      console.log('Expected total:', expectedAmount, 'lamports');
       console.log('Actual amount:', recipientBalanceChange, 'lamports');
       console.log('═══════════════════════════════════════════════════════\n');
       return res.status(400).json({ 
         error: 'Incorrect transaction amount',
+        workerPayment: workerPaymentLamports,
+        platformFee: platformFeeLamports,
         expected: expectedAmount,
         received: recipientBalanceChange
       });
     }
 
-    // Calculate amount per worker
+    // Calculate amount per worker (ONLY from worker payment, NOT platform fees)
     const votesRequired = body.votesRequired || 10;
-    const amountPerWorker = Math.floor(expectedAmount / votesRequired);
+    const amountPerWorker = Math.floor(workerPaymentLamports / votesRequired);
 
     // Create task
     console.log('\n✅ ALL VALIDATIONS PASSED');
     console.log('Creating task in database...');
-    console.log('Total Amount:', expectedAmount, 'lamports');
-    console.log('Votes Required:', votesRequired);
-    console.log('Amount per Worker:', amountPerWorker, 'lamports');
+    console.log('💰 PAYMENT BREAKDOWN:');
+    console.log('  Total received:', expectedAmount, 'lamports (', expectedAmount / 1000000000, 'SOL)');
+    console.log('  └─ Worker payment:', workerPaymentLamports, 'lamports (', workerPaymentLamports / 1000000000, 'SOL)');
+    console.log('  └─ Platform fees:', platformFeeLamports, 'lamports (', platformFeeLamports / 1000000000, 'SOL)');
+    console.log('📊 DISTRIBUTION:');
+    console.log('  Votes required:', votesRequired);
+    console.log('  Amount per worker:', amountPerWorker, 'lamports (', amountPerWorker / 1000000000, 'SOL)');
+    console.log('  └─ Instant (50%):', Math.floor(amountPerWorker / 2), 'lamports');
+    console.log('  └─ Bonus (50%):', amountPerWorker - Math.floor(amountPerWorker / 2), 'lamports');
     const task = await Task.create({
       title: body.title || 'Select the most clickable thumbnail',
       userId: req.userId,
       signature: body.signature,
       amount: amountPerWorker,
-      totalAmount: expectedAmount,
+      totalAmount: workerPaymentLamports, // Only worker payment, not platform fees
       votesRequired: votesRequired,
       votesReceived: 0,
       options: body.options
@@ -385,6 +401,79 @@ router.get('/presignedUrl', authMiddleware, async (req: AuthRequest, res) => {
   } catch (error) {
     console.error('❌ Failed to generate presigned URL:', error);
     res.status(500).json({ error: 'Failed to generate presigned URL', details: (error as Error).message });
+  }
+});
+
+// Get Task Insights
+router.get('/task/insights/:taskId', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const { taskId } = req.params;
+    
+    const task = await Task.findById(taskId);
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    // Check if user owns this task
+    if (task.userId?.toString() !== req.userId) {
+      return res.status(403).json({ error: 'Not authorized to view this task' });
+    }
+
+    // Get all submissions for this task
+    const submissions = await Submission.find({ taskId });
+
+    // Count votes per option
+    const voteCounts: { [key: string]: number } = {};
+    task.options.forEach((option: any) => {
+      voteCounts[option._id.toString()] = 0;
+    });
+
+    submissions.forEach(sub => {
+      const optionId = sub.optionId.toString();
+      voteCounts[optionId] = (voteCounts[optionId] || 0) + 1;
+    });
+
+    // Find winner
+    let winningOptionId = '';
+    let maxVotes = 0;
+    Object.entries(voteCounts).forEach(([optionId, votes]) => {
+      if (votes > maxVotes) {
+        maxVotes = votes;
+        winningOptionId = optionId;
+      }
+    });
+
+    // Prepare voting data
+    const votingData = task.options.map((option: any) => {
+      const votes = voteCounts[option._id.toString()] || 0;
+      const percentage = task.votesReceived > 0 ? (votes / task.votesReceived) * 100 : 0;
+      
+      return {
+        option: `Option ${task.options.indexOf(option) + 1}`,
+        votes,
+        percentage
+      };
+    });
+
+    const winner = task.done && winningOptionId 
+      ? `Option ${task.options.findIndex((o: any) => o._id.toString() === winningOptionId) + 1}`
+      : undefined;
+
+    res.json({
+      taskId: task._id,
+      title: task.title,
+      votingData,
+      status: {
+        completed: task.done,
+        progress: Math.round((task.votesReceived / task.votesRequired) * 100),
+        votesReceived: task.votesReceived,
+        votesRequired: task.votesRequired
+      },
+      winner
+    });
+  } catch (error) {
+    console.error('Error fetching task insights:', error);
+    res.status(500).json({ error: 'Failed to fetch insights' });
   }
 });
 

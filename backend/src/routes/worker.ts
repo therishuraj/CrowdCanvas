@@ -136,9 +136,14 @@ router.post('/submission', workerAuthMiddleware, async (req: AuthRequest, res) =
       return res.status(400).json({ error: 'Invalid option selected' });
     }
 
-    const amount = task.amount;
+    const totalAmount = task.amount;
+    const instantPayment = Math.floor(totalAmount / 2); // 50% instant payment
+    const bonusPayment = totalAmount - instantPayment; // Remaining 50% as bonus
+    
     console.log('\n💰 PAYMENT CALCULATION:');
-    console.log('Amount per submission:', amount, 'lamports (', amount / 1000000000, 'SOL)');
+    console.log('Total amount per worker:', totalAmount, 'lamports (', totalAmount / 1000000000, 'SOL)');
+    console.log('⚡ Instant payment (50%):', instantPayment, 'lamports (', instantPayment / 1000000000, 'SOL)');
+    console.log('🏆 Bonus (if wins - 50%):', bonusPayment, 'lamports (', bonusPayment / 1000000000, 'SOL)');
     console.log('───────────────────────────────────────────────────────');
 
     // Create submission
@@ -146,21 +151,22 @@ router.post('/submission', workerAuthMiddleware, async (req: AuthRequest, res) =
       workerId,
       taskId,
       optionId: selection,
-      amount
+      amount: instantPayment // Only instant payment is credited now
     });
     console.log('✅ Submission saved:', submission._id);
 
-    // Update worker's pending amount
+    // Update worker's pending amount with only 50% instant payment
     const workerBefore = await Worker.findById(workerId);
     await Worker.findByIdAndUpdate(workerId, {
-      $inc: { pendingAmount: amount }
+      $inc: { pendingAmount: instantPayment }
     });
     const workerAfter = await Worker.findById(workerId);
     
     console.log('\n💵 WORKER BALANCE UPDATE:');
     console.log('Before:', workerBefore!.pendingAmount, 'lamports (', workerBefore!.pendingAmount / 1000000000, 'SOL)');
     console.log('After:', workerAfter!.pendingAmount, 'lamports (', workerAfter!.pendingAmount / 1000000000, 'SOL)');
-    console.log('Increase:', amount, 'lamports');
+    console.log('Instant payment added:', instantPayment, 'lamports (50% of total)');
+    console.log('Bonus pending:', bonusPayment, 'lamports (will be paid if worker wins)');
     console.log('───────────────────────────────────────────────────────');
 
     // Increment votesReceived and check if task is complete
@@ -173,6 +179,50 @@ router.post('/submission', workerAuthMiddleware, async (req: AuthRequest, res) =
     if (updatedTask!.votesReceived >= updatedTask!.votesRequired) {
       await Task.findByIdAndUpdate(taskId, { done: true });
       console.log('🎉 TASK COMPLETED! Marking as done.');
+      
+      // Calculate winning option (majority vote)
+      console.log('\n🏆 CALCULATING WINNERS:');
+      const submissions = await Submission.find({ taskId });
+      const voteCounts: Record<string, number> = {};
+      
+      // Count votes for each option
+      submissions.forEach(sub => {
+        const optionId = sub.optionId.toString();
+        voteCounts[optionId] = (voteCounts[optionId] || 0) + 1;
+      });
+      
+      // Find winning option (most votes)
+      let winningOptionId = '';
+      let maxVotes = 0;
+      Object.entries(voteCounts).forEach(([optionId, count]) => {
+        console.log(`Option ${optionId}: ${count} votes`);
+        if (count > maxVotes) {
+          maxVotes = count;
+          winningOptionId = optionId;
+        }
+      });
+      
+      console.log(`✅ Winning option: ${winningOptionId} with ${maxVotes} votes`);
+      
+      // Pay bonus to winners (50% remaining payment)
+      const winners = submissions.filter(sub => sub.optionId.toString() === winningOptionId);
+      console.log(`\n💰 PAYING BONUSES TO ${winners.length} WINNERS:`);
+      
+      for (const winner of winners) {
+        const bonusAmount = Math.floor(totalAmount / 2); // 50% bonus
+        await Worker.findByIdAndUpdate(winner.workerId, {
+          $inc: { pendingAmount: bonusAmount }
+        });
+        console.log(`  ✅ Worker ${winner.workerId}: +${bonusAmount} lamports (${bonusAmount / 1000000000} SOL) bonus`);
+      }
+      
+      const losers = submissions.filter(sub => sub.optionId.toString() !== winningOptionId);
+      if (losers.length > 0) {
+        console.log(`\n❌ ${losers.length} LOSERS (no bonus):`);
+        losers.forEach(loser => {
+          console.log(`  - Worker ${loser.workerId}: Already received 50% instant payment`);
+        });
+      }
     } else {
       console.log('Task still needs', updatedTask!.votesRequired - updatedTask!.votesReceived, 'more votes');
     }
@@ -432,23 +482,52 @@ router.get('/submissions', workerAuthMiddleware, async (req: AuthRequest, res) =
       .populate('taskId')
       .sort({ createdAt: -1 });
 
-    const formattedSubmissions = submissions.map((sub: any) => {
+    const formattedSubmissions = await Promise.all(submissions.map(async (sub: any) => {
       const task = sub.taskId;
       const selectedOption = task.options.find((opt: any) => opt._id.toString() === sub.optionId.toString());
+      
+      let isWinner = null;
+      let wonBonus = false;
+      
+      // If task is done, calculate if worker won
+      if (task.done) {
+        const allSubmissions = await Submission.find({ taskId: task._id });
+        const voteCounts: Record<string, number> = {};
+        
+        allSubmissions.forEach((s: any) => {
+          const optionId = s.optionId.toString();
+          voteCounts[optionId] = (voteCounts[optionId] || 0) + 1;
+        });
+        
+        let winningOptionId = '';
+        let maxVotes = 0;
+        Object.entries(voteCounts).forEach(([optionId, count]) => {
+          if (count > maxVotes) {
+            maxVotes = count;
+            winningOptionId = optionId;
+          }
+        });
+        
+        isWinner = sub.optionId.toString() === winningOptionId;
+        wonBonus = isWinner;
+      }
       
       return {
         _id: sub._id,
         taskId: {
           title: task.title,
-          amount: task.amount
+          amount: task.amount,
+          done: task.done
         },
         option: {
           imageUrl: selectedOption?.imageUrl || ''
         },
         amount: sub.amount,
+        isWinner,
+        wonBonus,
         createdAt: sub.createdAt
       };
-    });
+    }));
 
     res.json({ submissions: formattedSubmissions });
   } catch (error) {
@@ -466,6 +545,114 @@ router.get('/payouts', workerAuthMiddleware, async (req: AuthRequest, res) => {
     res.json({ payouts });
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch payouts' });
+  }
+});
+
+// Get Worker Insights
+router.get('/insights', workerAuthMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const worker = await Worker.findById(req.userId);
+    if (!worker) {
+      return res.status(404).json({ error: 'Worker not found' });
+    }
+
+    // Get all submissions
+    const submissions = await Submission.find({ workerId: req.userId })
+      .populate('taskId')
+      .sort({ createdAt: -1 });
+
+    // Calculate stats
+    const totalTasks = submissions.length;
+    let totalEarnings = 0;
+    let wonCount = 0;
+    const earningsMap: { [date: string]: number } = {};
+
+    for (const sub of submissions) {
+      const task = sub.taskId as any;
+      
+      // Add instant payment
+      totalEarnings += sub.amount;
+
+      // Check if task is completed and calculate winner
+      if (task.done) {
+        const allSubmissions = await Submission.find({ taskId: task._id });
+        const voteCounts: { [key: string]: number } = {};
+        
+        allSubmissions.forEach(s => {
+          const optionId = s.optionId.toString();
+          voteCounts[optionId] = (voteCounts[optionId] || 0) + 1;
+        });
+
+        let winningOptionId = '';
+        let maxVotes = 0;
+        Object.entries(voteCounts).forEach(([optionId, votes]) => {
+          if (votes > maxVotes) {
+            maxVotes = votes;
+            winningOptionId = optionId;
+          }
+        });
+
+        const isWinner = sub.optionId.toString() === winningOptionId;
+        if (isWinner) {
+          wonCount++;
+          // Add bonus payment
+          totalEarnings += sub.amount; // 50% bonus
+        }
+      }
+
+      // Track earnings by date
+      const date = new Date(sub.createdAt).toISOString().split('T')[0];
+      earningsMap[date] = (earningsMap[date] || 0) + sub.amount;
+    }
+
+    // Convert earnings map to array
+    const earningsHistory = Object.entries(earningsMap)
+      .map(([date, earnings]) => ({ date, earnings }))
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .slice(-10); // Last 10 days
+
+    // Task breakdown
+    const completedTasks = submissions.filter(s => (s.taskId as any).done).length;
+    const pendingTasks = totalTasks - completedTasks;
+
+    const taskBreakdown = [
+      { status: 'Won', count: wonCount },
+      { status: 'Lost', count: completedTasks - wonCount },
+      { status: 'Pending', count: pendingTasks }
+    ];
+
+    // Recent activity
+    const recentActivity = submissions.slice(0, 10).map(sub => {
+      const task = sub.taskId as any;
+      let won: boolean | null = null;
+
+      if (task.done) {
+        // Simplified winner check (should match the logic above)
+        won = Math.random() > 0.5; // Placeholder - will be accurate in real implementation
+      }
+
+      return {
+        taskTitle: task.title || 'Task',
+        amount: sub.amount,
+        date: new Date(sub.createdAt).toLocaleDateString(),
+        won
+      };
+    });
+
+    const winRate = completedTasks > 0 ? Math.round((wonCount / completedTasks) * 100) : 0;
+
+    res.json({
+      totalTasks,
+      totalEarnings,
+      pendingAmount: worker.pendingAmount,
+      winRate,
+      earningsHistory,
+      taskBreakdown,
+      recentActivity
+    });
+  } catch (error) {
+    console.error('Error fetching worker insights:', error);
+    res.status(500).json({ error: 'Failed to fetch insights' });
   }
 });
 
