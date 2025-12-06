@@ -452,7 +452,7 @@ PARENT_WALLET_PRIVATE_KEY=<base58_private_key>
 AWS_ACCESS_KEY_ID=<aws_key>
 AWS_SECRET_ACCESS_KEY=<aws_secret>
 AWS_REGION=eu-north-1
-S3_BUCKET_NAME=decentralized-fiver-s3
+S3_BUCKET_NAME=
 CLOUDFRONT_DOMAIN=d3uiymoagcqxzj.cloudfront.net
 
 # Frontend (.env.local)
@@ -466,28 +466,11 @@ NEXT_PUBLIC_PARENT_WALLET_ADDRESS=<solana_public_key>
 
 ### Project Information
 - **Name**: CrowdCanvas
-- **Tagline**: Decentralized Creative Consensus Platform
 - **Website**: [Coming Soon]
-- **Demo**: [Add Loom/YouTube demo link]
-- **GitHub**: https://github.com/code100x/decentralized-fiverr
+- **GitHub**: https://github.com/therishuraj/crowdcanvas
 
 ### Founder Contact
-- **Email**: [Your email]
-- **Twitter**: [@YourHandle]
-- **Telegram**: [@YourHandle]
-- **LinkedIn**: [Your LinkedIn]
-
-### Resources
-- **Pitch Deck**: [Add Google Drive/Notion link]
-- **Product Demo**: [Add video walkthrough]
-- **Technical Docs**: [Add detailed tech docs]
-- **Roadmap**: [Add public roadmap link]
-
-### Social Media
-- **Discord**: [Community invite link]
-- **Twitter**: [@CrowdCanvasHQ]
-- **Mirror**: [Blog for updates]
-
+- **Email**: rishurajsalarpur@gmail.com
 ---
 
 ## 📎 Appendix
