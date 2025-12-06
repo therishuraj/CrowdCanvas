@@ -1,29 +1,29 @@
 # CrowdCanvas - Solana-Powered Data Labeling Platform
 
-A Solana blockchain-based data labeling platform. Users create tasks and pay in SOL, workers complete tasks and earn SOL.
+A Solana blockchain-based data labeling platform. Users create tasks and pay in SOL, contributors complete tasks and earn SOL.
 
 ## 🏗️ Architecture
 
 ```
-┌─────────────────┐         ┌─────────────────┐
-│  User Frontend  │         │ Worker Frontend │
-│  (Port 3000)    │         │  (Port 3002)    │
-└────────┬────────┘         └────────┬────────┘
-         │                           │
-         │        REST API           │
-         └───────────┬───────────────┘
-                     │
-              ┌──────▼──────┐
-              │   Backend   │
-              │ (Port 3001) │
-              └──────┬──────┘
-                     │
-         ┌───────────┼───────────┐
-         │           │           │
-    ┌────▼────┐ ┌───▼────┐ ┌───▼────┐
-    │ MongoDB │ │ Solana │ │  AWS   │
-    │         │ │Mainnet │ │  S3    │
-    └─────────┘ └────────┘ └────────┘
+┌─────────────────┐         ┌───────────────────────┐
+│  User Frontend  │         │ Contributors Frontend │
+│  (Port 3000)    │         │      (Port 3002)      │
+└────────┬────────┘         └───────────┬───────────┘
+         │                              │
+         │           REST API           │
+         └──────────────┬───────────────┘
+                        │
+                 ┌──────▼──────┐
+                 │   Backend   │
+                 │ (Port 3001) │
+                 └──────┬──────┘
+                        │
+            ┌───────────┼───────────┐
+            │           │           │
+       ┌────▼────┐ ┌───▼────┐ ┌───▼────┐
+       │ MongoDB │ │ Solana │ │  AWS   │
+       │         │ │Mainnet │ │  S3    │
+       └─────────┘ └────────┘ └────────┘
 ```
 
 ## 📋 Tech Stack
@@ -36,11 +36,12 @@ A Solana blockchain-based data labeling platform. Users create tasks and pay in 
 - **Auth**: JWT + TweetNaCl (wallet signature verification)
 - **Validation**: Zod
 
-### Frontend (Both User & Worker)
+### Frontend (Both User & Contributors)
 - **Framework**: Next.js 14 (App Router)
 - **Styling**: Tailwind CSS
 - **Wallet**: Solana Wallet Adapter
 - **HTTP Client**: Axios
+- **Icons**: lucide-react
 
 ## 🚀 Quick Start
 
@@ -67,8 +68,8 @@ npm install
 cd ../user-frontend
 npm install
 
-# Install worker frontend dependencies
-cd ../worker-frontend
+# Install contributors frontend dependencies
+cd ../contributors-frontend
 npm install
 ```
 
@@ -89,7 +90,7 @@ MONGODB_URI=mongodb://localhost:27017/crowdcanvas
 
 # JWT Secrets (CHANGE THESE!)
 JWT_SECRET=your-super-secret-jwt-key-here
-WORKER_JWT_SECRET=your-worker-secret-jwt-key-here
+CONTRIBUTOR_JWT_SECRET=your-contributor-secret-jwt-key-here
 
 # Solana Configuration
 SOLANA_RPC_URL=https://api.devnet.solana.com
@@ -134,20 +135,20 @@ npm run dev
 # Runs on http://localhost:3000
 ```
 
-**Terminal 3 - Worker Frontend:**
+**Terminal 3 - Contributors Frontend:**
 ```bash
-cd worker-frontend
+cd contributors-frontend
 npm run dev
 # Runs on http://localhost:3002
 ```
 
 ## 🔑 Required External Services & Configuration
 
-### 1. Solana Wallet Private Key (REQUIRED for worker payouts)
+### 1. Solana Wallet Private Key (REQUIRED for contributor payouts)
 
 **Where**: Backend `.env` → `PARENT_WALLET_PRIVATE_KEY`
 
-**Why**: The parent wallet receives task payments and pays workers. Without this, **payouts will fail**.
+**Why**: The parent wallet receives task payments and pays contributors. Without this, **payouts will fail**.
 
 **How to get**:
 
@@ -187,7 +188,7 @@ solana-keygen new
 ```
 
 **Important**: 
-- This wallet will pay out workers
+- This wallet will pay out contributors
 - Must have sufficient SOL balance
 - Keep the private key secret!
 
@@ -257,9 +258,9 @@ AWS_BUCKET_NAME=crowdcanvas-images
    - Click "Create Task" to submit
 3. **View Results**: Navigate to task page to see voting results
 
-### For Workers (Task Completers)
+### For Contributors (Task Completers)
 
-1. **Connect Wallet**: Click "Connect Wallet" on worker frontend
+1. **Connect Wallet**: Click "Connect Wallet" on contributors frontend
 2. **Complete Tasks**:
    - View current task
    - Click on the best option
@@ -270,9 +271,9 @@ AWS_BUCKET_NAME=crowdcanvas-images
 ## 🔐 Security Features
 
 - **Wallet Signature Authentication**: No passwords, secure Web3 auth
-- **JWT Tokens**: Separate secrets for users and workers
+- **JWT Tokens**: Separate secrets for users and contributors
 - **Transaction Verification**: All Solana transactions verified on-chain
-- **Unique Submissions**: Workers can only submit once per task
+- **Unique Submissions**: Contributors can only submit once per task
 - **Balance Locking**: Prevents double-spending during payouts
 - **Input Validation**: Zod schemas validate all user input
 
@@ -285,7 +286,7 @@ AWS_BUCKET_NAME=crowdcanvas-images
 - `address`: String (Solana wallet address, unique)
 - `createdAt`: Date
 
-**workers**
+**contributors**
 - `_id`: ObjectId
 - `address`: String (Solana wallet address, unique)
 - `pendingAmount`: Number (lamports)
@@ -305,15 +306,15 @@ AWS_BUCKET_NAME=crowdcanvas-images
 **submissions**
 - `_id`: ObjectId
 - `taskId`: ObjectId → tasks
-- `workerId`: ObjectId → workers
+- `contributorId`: ObjectId → contributors
 - `optionId`: ObjectId
 - `amount`: Number
 - `createdAt`: Date
-- Unique index: `{workerId, taskId}`
+- Unique index: `{contributorId, taskId}`
 
 **payouts**
 - `_id`: ObjectId
-- `workerId`: ObjectId → workers
+- `contributorId`: ObjectId → contributors
 - `amount`: Number
 - `signature`: String (transaction signature)
 - `status`: Enum (Processing, Success, Failure)
@@ -330,14 +331,14 @@ AWS_BUCKET_NAME=crowdcanvas-images
 | GET | `/task?taskId=<id>` | Yes | Get task results |
 | GET | `/presignedUrl` | Yes | Get S3 upload URL (placeholder) |
 
-### Worker Endpoints (`/v1/worker`)
+### Contributor Endpoints (`/v1/contributor`)
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| POST | `/signin` | No | Authenticate worker with wallet |
+| POST | `/signin` | No | Authenticate contributor with wallet |
 | GET | `/nextTask` | Yes | Get next available task |
 | POST | `/submission` | Yes | Submit task completion |
-| GET | `/balance` | Yes | Get worker balance |
+| GET | `/balance` | Yes | Get contributor balance |
 | POST | `/payout` | Yes | Request SOL payout |
 
 ## 🎯 Configuration Summary
@@ -347,7 +348,7 @@ AWS_BUCKET_NAME=crowdcanvas-images
 2. **JWT Secrets** - Change from defaults
 
 ### ⚠️ Must Configure for Full Functionality
-3. **Solana Private Key** - For worker payouts
+3. **Solana Private Key** - For contributor payouts
 4. **Solana RPC URL** - Better performance (optional, has default)
 
 ### 🔧 Optional Enhancements
@@ -368,8 +369,8 @@ npm run dev      # Development mode
 npm run build    # Build for production
 npm start        # Production mode
 
-# Worker Frontend
-cd worker-frontend
+# Contributors Frontend
+cd contributors-frontend
 npm run dev      # Development mode (port 3002)
 npm run build    # Build for production
 npm start        # Production mode (port 3002)
@@ -406,7 +407,7 @@ npm install
 
 1. **Test on Devnet First**: Change `WalletAdapterNetwork.Mainnet` to `Devnet` for testing
 2. **Task Amount**: Tasks cost 0.1 SOL (100,000,000 lamports)
-3. **Worker Payment**: Each worker gets `task.amount / 100` per submission
+3. **Contributor Payment**: Each contributor gets `task.amount / 100` per submission
 4. **Total Submissions**: Tasks complete after 100 submissions
 5. **Image URLs**: Use publicly accessible image URLs (https://...)
 
@@ -414,7 +415,7 @@ npm install
 
 - [ ] S3 image upload implementation
 - [ ] Task categories and filtering
-- [ ] Worker reputation system
+- [ ] Contributor reputation system
 - [ ] Task preview before payment
 - [ ] Escrow smart contract
 - [ ] Multi-option tasks (not just images)
