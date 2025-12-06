@@ -1,10 +1,10 @@
-# CrowdCanvas: Decentralized Creative Consensus Platform
+# CrowdCanvas: Solana-Powered Creative Consensus Platform
 
 ## 🎯 Executive Summary
 
-**CrowdCanvas transforms creative decision-making by democratizing design choices through blockchain-powered micro-tasks.**
+**CrowdCanvas transforms creative decision-making by democratizing design choices through Solana blockchain-powered micro-tasks.**
 
-Brands spend millions on market research and A/B testing. Creatives struggle to validate concepts. Workers want flexible micro-earning opportunities. CrowdCanvas solves all three problems with a decentralized platform where creators get authentic public feedback, and workers earn SOL for honest opinions.
+Brands spend lakhs on market research and A/B testing. Creatives struggle to validate concepts. Contributors want flexible micro-earning opportunities. CrowdCanvas solves all three problems with a Solana-powered platform where creators get authentic public feedback, and workers earn SOL for their opinions.
 
 ---
 
@@ -86,7 +86,7 @@ Existing solutions are either:
 
 ## 🌟 Why This is Unique
 
-### 1. **True Decentralization**
+### 1. **Solana-Powered Infrastructure**
 Unlike centralized competitors (MTurk, Fiverr), CrowdCanvas:
 - ✅ No platform fees (0% vs. 20-40% on competitors)
 - ✅ Open-source and auditable
@@ -176,7 +176,7 @@ Unlike centralized competitors (MTurk, Fiverr), CrowdCanvas:
 
 | Platform | Type | Fee | Payment Speed | Geographic Access | Blockchain |
 |----------|------|-----|---------------|-------------------|------------|
-| **CrowdCanvas** | Decentralized | 0% | Instant | Global | ✅ Solana |
+| **CrowdCanvas** | Solana-Powered | 0% | Instant | Global | ✅ Solana |
 | **Amazon MTurk** | Centralized | 20-40% | 7-21 days | 43 countries | ❌ |
 | **Clickworker** | Centralized | 30% | 14-30 days | Limited | ❌ |
 | **Respondent.io** | Centralized | 20% | 7 days | 190 countries | ❌ |
@@ -299,12 +299,12 @@ amountPerWorker = totalAmount / votesRequired
 
 #### 🔴 HIGH PRIORITY
 
-**1. Centralized Parent Wallet**
+**1. Parent Wallet Single Point of Failure**
 - **Problem**: Single wallet holds all escrow funds (honey pot risk)
 - **Impact**: If compromised, all funds at risk
 - **Solution**: 
   - Implement Solana Program (smart contract) for escrow
-  - Use Program Derived Addresses (PDAs) for trustless escrow
+  - Use Program Derived Addresses (PDAs) for trustless, automated escrow
   - Workers claim directly from program, no manual payouts
 - **Timeline**: 1-2 months
 - **Cost**: ~$50K (Solana developer + security audit)
@@ -436,7 +436,7 @@ const rateLimit = rateLimit({
   - On-chain vote storage
   - Automated payout distribution
   
-- **Decentralized Storage**
+- **Distributed Storage**
   - Migrate images to Arweave/IPFS
   - Reduce dependency on AWS S3
   - Permanent, censorship-resistant storage
@@ -1168,13 +1168,13 @@ NEXT_PUBLIC_PARENT_WALLET_ADDRESS=<solana_public_key>
 - ✅ Globally accessible (any wallet, any country)
 - ✅ Zero platform fees (workers keep 100%)
 
-**We're not just building a product—we're creating infrastructure for the creator economy.**
+**We're not just building a product—we're creating Solana-powered infrastructure for the creator economy.**
 
 Every musician choosing an album cover. Every brand testing packaging. Every YouTuber optimizing thumbnails. They all need fast, authentic, affordable feedback. CrowdCanvas makes it possible.
 
-**The timing is perfect. The team is ready. The technology is proven.**
+**The timing is perfect. The team is ready. Solana technology is proven.**
 
-**Join us in democratizing creative decision-making. 🎨🚀**
+**Join us in democratizing creative decision-making with Solana. 🎨🚀**
 
 ---
 

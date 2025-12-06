@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import axios from 'axios';
 import { BACKEND_URL } from '@/lib/config';
+import { Zap, Award, X } from 'lucide-react';
 
 interface Submission {
   _id: string;
@@ -154,7 +155,7 @@ export default function TaskHistory() {
                     {/* Payment Structure Info */}
                     <div className="mt-3 space-y-2">
                       <div className="flex items-center gap-2 text-xs">
-                        <span className="text-green-400">⚡ Instant (50%):</span>
+                        <span className="text-green-400 flex items-center gap-1"><Zap className="w-3 h-3" /> Instant (50%):</span>
                         <span className="text-white font-semibold">
                           {(submission.amount / 1000000000).toFixed(6)} SOL
                         </span>
@@ -165,14 +166,14 @@ export default function TaskHistory() {
                           <div className="flex items-center gap-2 text-xs">
                             {submission.wonBonus ? (
                               <>
-                                <span className="text-yellow-400">🏆 Bonus (50%):</span>
+                                <span className="text-yellow-400 flex items-center gap-1"><Award className="w-3 h-3" /> Bonus (50%):</span>
                                 <span className="text-yellow-400 font-semibold">
                                   {(submission.amount / 1000000000).toFixed(6)} SOL ✓ Won!
                                 </span>
                               </>
                             ) : (
                               <>
-                                <span className="text-gray-500">❌ Bonus (50%):</span>
+                                <span className="text-gray-500 flex items-center gap-1"><X className="w-3 h-3" /> Bonus (50%):</span>
                                 <span className="text-gray-500 font-semibold">
                                   Lost (minority vote)
                                 </span>
@@ -181,7 +182,7 @@ export default function TaskHistory() {
                           </div>
                         ) : (
                           <div className="flex items-center gap-2 text-xs">
-                            <span className="text-yellow-400">🏆 Bonus (50%):</span>
+                            <span className="text-yellow-400 flex items-center gap-1"><Award className="w-3 h-3" /> Bonus (50%):</span>
                             <span className="text-yellow-400 font-semibold">
                               Calculating results...
                             </span>
@@ -189,7 +190,7 @@ export default function TaskHistory() {
                         )
                       ) : (
                         <div className="flex items-center gap-2 text-xs">
-                          <span className="text-yellow-400">🏆 Bonus (50%):</span>
+                          <span className="text-yellow-400 flex items-center gap-1"><Award className="w-3 h-3" /> Bonus (50%):</span>
                           <span className="text-yellow-400 font-semibold">
                             Pending task completion...
                           </span>

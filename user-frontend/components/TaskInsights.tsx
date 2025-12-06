@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Award } from 'lucide-react';
 
 const BACKEND_URL = 'http://localhost:3001';
 const COLORS = ['#14F195', '#9945FF', '#19D1D9', '#F1C40F', '#E74C3C', '#9B59B6'];
@@ -167,7 +168,7 @@ export default function TaskInsights({ taskId }: { taskId: string }) {
       {insights.status.completed && insights.winner && (
         <div className="bg-gradient-to-r from-solana-green/20 to-solana-purple/20 rounded-xl p-6 border border-solana-green">
           <div className="flex items-center gap-3">
-            <span className="text-4xl">🏆</span>
+            <Award className="w-12 h-12 text-yellow-400" />
             <div>
               <h3 className="text-xl font-bold text-solana-green">Winner Announced!</h3>
               <p className="text-gray-300 mt-1">

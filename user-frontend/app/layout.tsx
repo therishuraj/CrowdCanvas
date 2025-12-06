@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CrowdCanvas - Decentralized Data Labeling",
+  title: "CrowdCanvas - Solana-Powered Data Labeling",
   description: "Create and manage data labeling tasks on Solana blockchain",
 };
 

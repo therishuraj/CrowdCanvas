@@ -1,6 +1,7 @@
 'use client';
 
 import Appbar from '@/components/Appbar';
+import { Users, TrendingUp, DollarSign, Globe, BarChart3, Timer, Wallet, Zap, Award, Target } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -13,9 +14,9 @@ export default function AboutPage() {
           <h1 className="text-5xl font-bold mb-6 bg-solana-gradient bg-clip-text text-transparent">
             CrowdCanvas
           </h1>
-          <p className="text-2xl text-gray-300 mb-4">Decentralized Creative Consensus Platform</p>
+          <p className="text-2xl text-gray-300 mb-4">Solana-Powered Creative Consensus Platform</p>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto">
-            Transform creative decision-making by democratizing design choices through blockchain-powered micro-tasks.
+            Transform creative decision-making by democratizing design choices through Solana blockchain-powered micro-tasks.
           </p>
         </div>
 
@@ -47,7 +48,7 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold mb-4 text-white">For Workers</h3>
+              <h3 className="text-xl font-semibold mb-4 text-white">For Contributors</h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
@@ -99,7 +100,7 @@ export default function AboutPage() {
               <div className="bg-solana-gradient text-solana-dark rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl flex-shrink-0">3</div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">Vote for Your Favorite</h3>
-                <p className="text-gray-300">Choose the design you like best. Your honest opinion is valuable - that's what creators pay for!</p>
+                <p className="text-gray-300">Choose the design you like best. Your honest opinion is valuable - that&apos;s what creators pay for!</p>
               </div>
             </div>
 
@@ -113,7 +114,7 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-8 p-6 bg-solana-darker rounded-lg border border-solana-medium-blue">
-            <h4 className="font-semibold text-white mb-3">Worker Benefits:</h4>
+            <h4 className="font-semibold text-white mb-3">Contributor Benefits:</h4>
             <div className="grid md:grid-cols-2 gap-4 text-gray-300">
               <div className="flex items-center gap-2">
                 <span className="text-green-400">✓</span>
@@ -145,7 +146,7 @@ export default function AboutPage() {
             {/* Worker Flow */}
             <div className="bg-solana-darker/50 rounded-lg p-6 border border-solana-green/30">
               <h3 className="text-2xl font-semibold mb-6 text-solana-green flex items-center gap-2">
-                <span>👷</span> Your Earning Journey
+                <Users className="w-6 h-6" /> Your Earning Journey
               </h3>
               <div className="grid md:grid-cols-5 gap-4">
                 <div className="text-center">
@@ -178,7 +179,7 @@ export default function AboutPage() {
               </div>
               <div className="mt-6 flex justify-center">
                 <div className="text-center bg-solana-green/10 rounded-lg p-4 border border-solana-green/30">
-                  <div className="text-sm font-semibold text-solana-green mb-2">🏆 Bonus Round!</div>
+                  <div className="text-sm font-semibold text-solana-green mb-2 flex items-center justify-center gap-2"><Award className="w-4 h-4" /> Bonus Round!</div>
                   <div className="text-xs text-gray-400">If your vote matches the majority, earn an additional 50% bonus</div>
                 </div>
               </div>
@@ -187,12 +188,12 @@ export default function AboutPage() {
             {/* Payment Breakdown */}
             <div className="bg-gradient-to-r from-green-900/20 to-yellow-900/20 rounded-lg p-6 border border-yellow-500/30">
               <h3 className="text-2xl font-semibold mb-6 text-yellow-400 flex items-center gap-2">
-                <span>💰</span> Payment Breakdown
+                <DollarSign className="w-6 h-6" /> Payment Breakdown
               </h3>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-solana-darker rounded-lg p-4 border border-green-500/30">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-3xl">⚡</span>
+                    <Zap className="w-8 h-8 text-green-400" />
                     <div>
                       <div className="text-lg font-semibold text-white">Instant Payment (50%)</div>
                       <div className="text-xs text-gray-400">Paid immediately when you vote</div>
@@ -206,7 +207,7 @@ export default function AboutPage() {
                 </div>
                 <div className="bg-solana-darker rounded-lg p-4 border border-yellow-500/30">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-3xl">🏆</span>
+                    <Award className="w-8 h-8 text-yellow-400" />
                     <div>
                       <div className="text-lg font-semibold text-white">Bonus (50%)</div>
                       <div className="text-xs text-gray-400">Only if you win majority vote</div>
@@ -220,8 +221,8 @@ export default function AboutPage() {
                 </div>
               </div>
               <div className="mt-4 bg-solana-darker/50 rounded-lg p-4 text-center border border-solana-purple/30">
-                <div className="text-sm text-gray-300">
-                  💡 <strong>Pro Tip:</strong> Choose wisely! Your earning potential doubles when you pick what the majority likes.
+                <div className="text-sm text-gray-300 flex items-center justify-center gap-2">
+                  <Target className="w-4 h-4 text-yellow-400" /> <strong>Pro Tip:</strong> Choose wisely! Your earning potential doubles when you pick what the majority likes.
                 </div>
               </div>
             </div>
@@ -229,17 +230,17 @@ export default function AboutPage() {
             {/* Features */}
             <div className="grid md:grid-cols-3 gap-4">
               <div className="bg-solana-darker/50 rounded-lg p-4 border border-solana-cyan/30 text-center">
-                <div className="text-3xl mb-2">📈</div>
+                <div className="flex justify-center mb-2"><TrendingUp className="w-8 h-8 text-solana-cyan" /></div>
                 <div className="text-sm font-semibold text-white mb-2">Track Performance</div>
                 <div className="text-xs text-gray-400">View insights: total earnings, win rate, task history</div>
               </div>
               <div className="bg-solana-darker/50 rounded-lg p-4 border border-solana-cyan/30 text-center">
-                <div className="text-3xl mb-2">⏱️</div>
+                <div className="flex justify-center mb-2"><Timer className="w-8 h-8 text-solana-cyan" /></div>
                 <div className="text-sm font-semibold text-white mb-2">5-Second Timer</div>
                 <div className="text-xs text-gray-400">Ensures you review tasks before voting</div>
               </div>
               <div className="bg-solana-darker/50 rounded-lg p-4 border border-solana-cyan/30 text-center">
-                <div className="text-3xl mb-2">💸</div>
+                <div className="flex justify-center mb-2"><Wallet className="w-8 h-8 text-solana-cyan" /></div>
                 <div className="text-sm font-semibold text-white mb-2">Instant Withdraw</div>
                 <div className="text-xs text-gray-400">Request payout anytime, funds sent on-chain</div>
               </div>
@@ -253,14 +254,14 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-6 text-gray-300">
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <span className="text-2xl">⚡</span>
+                <Zap className="w-6 h-6 text-yellow-400" />
                 <div>
                   <h4 className="font-semibold text-white mb-1">Instant Payments</h4>
                   <p className="text-sm">Get paid in seconds, not weeks. No middlemen holding your money.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-2xl">💰</span>
+                <DollarSign className="w-6 h-6 text-green-400" />
                 <div>
                   <h4 className="font-semibold text-white mb-1">Zero Fees</h4>
                   <p className="text-sm">No 20-40% platform fees. Workers earn 100% of what creators pay.</p>
@@ -269,14 +270,14 @@ export default function AboutPage() {
             </div>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <span className="text-2xl">🌍</span>
+                <Globe className="w-6 h-6 text-blue-400" />
                 <div>
                   <h4 className="font-semibold text-white mb-1">Global Access</h4>
                   <p className="text-sm">No geographic restrictions. Anyone with a wallet can participate.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-2xl">📊</span>
+                <BarChart3 className="w-6 h-6 text-purple-400" />
                 <div>
                   <h4 className="font-semibold text-white mb-1">Transparent</h4>
                   <p className="text-sm">All transactions verifiable on Solana explorer. No hidden deductions.</p>

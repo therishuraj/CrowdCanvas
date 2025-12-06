@@ -5,6 +5,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import axios from 'axios';
 import { BACKEND_URL } from '@/lib/config';
 import { useRouter } from 'next/navigation';
+import { BarChart3, TrendingUp } from 'lucide-react';
 
 interface Task {
   _id: string;
@@ -96,7 +97,7 @@ export default function TaskList() {
                         }}
                         className="px-3 py-1 text-xs bg-solana-cyan/20 text-solana-cyan rounded-lg hover:bg-solana-cyan/30 transition-colors"
                       >
-                        📊 View Results
+                        <BarChart3 className="w-4 h-4 inline mr-1" /> View Results
                       </button>
                       <button
                         onClick={(e) => {
@@ -105,7 +106,7 @@ export default function TaskList() {
                         }}
                         className="px-3 py-1 text-xs bg-solana-purple/20 text-solana-purple rounded-lg hover:bg-solana-purple/30 transition-colors"
                       >
-                        📈 View Insights
+                        <TrendingUp className="w-4 h-4 inline mr-1" /> View Insights
                       </button>
                     </div>
                   </div>

@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { BACKEND_URL } from '@/lib/config';
 import { UploadImage } from './UploadImage';
+import { DollarSign, Zap, Award, Users, BarChart3, Package, CreditCard } from 'lucide-react';
 
 interface TaskOption {
   imageUrl: string;
@@ -264,18 +265,18 @@ export default function CreateTask() {
             {/* Cost Breakdown */}
             <div className="p-4 bg-gradient-to-r from-solana-purple/10 to-solana-blue/10 border border-solana-purple/30 rounded-lg space-y-3">
               <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-300">💰 Payment per worker:</span>
+                <span className="text-gray-300 flex items-center gap-2"><DollarSign className="w-4 h-4" /> Payment per worker:</span>
                 <span className="font-semibold text-solana-blue">{(workerPayment / votes).toFixed(6)} SOL</span>
               </div>
               
               {/* Payment Structure Breakdown */}
               <div className="ml-4 space-y-1 bg-solana-darker/50 p-3 rounded-lg border border-solana-medium-blue/30">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-gray-400">⚡ Instant (on vote):</span>
+                  <span className="text-gray-400 flex items-center gap-2"><Zap className="w-3 h-3" /> Instant (on vote):</span>
                   <span className="text-green-400 font-semibold">{((workerPayment / votes) / 2).toFixed(6)} SOL (50%)</span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-gray-400">🏆 Bonus (if majority wins):</span>
+                  <span className="text-gray-400 flex items-center gap-2"><Award className="w-3 h-3" /> Bonus (if majority wins):</span>
                   <span className="text-yellow-400 font-semibold">{((workerPayment / votes) / 2).toFixed(6)} SOL (50%)</span>
                 </div>
                 <div className="text-xs text-gray-500 mt-2 italic">
@@ -284,38 +285,38 @@ export default function CreateTask() {
               </div>
               
               <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-300">👥 Total workers:</span>
+                <span className="text-gray-300 flex items-center gap-2"><Users className="w-4 h-4" /> Total workers:</span>
                 <span className="font-semibold text-white">{votes}</span>
               </div>
               <div className="h-px bg-solana-medium-blue/50"></div>
               <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-300">📊 Subtotal (Workers):</span>
+                <span className="text-gray-300 flex items-center gap-2"><BarChart3 className="w-4 h-4" /> Subtotal (Workers):</span>
                 <span className="font-semibold text-white">{workerPayment.toFixed(6)} SOL</span>
               </div>
             </div>
 
             {/* Platform Fee Breakdown */}
             <div className="p-4 bg-yellow-900/10 border border-yellow-500/30 rounded-lg space-y-2">
-              <div className="text-sm font-semibold text-yellow-400 mb-2">⚡ Platform Fees</div>
+              <div className="text-sm font-semibold text-yellow-400 mb-2 flex items-center gap-2"><Zap className="w-4 h-4" /> Platform Fees</div>
               <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-400">📦 Storage ({totalImageSizeMB.toFixed(2)} MB × {votes} views):</span>
-                <span className="text-gray-300">{(storageCost * votes).toFixed(6)} SOL</span>
+                <span className="text-gray-400 flex items-center gap-2"><Package className="w-3 h-3" /> Storage ({totalImageSizeMB.toFixed(2)} MB × {votes} views):</span>
+                <span className="text-gray-300">{(storageCost * votes).toFixed(9)} SOL</span>
               </div>
               <div className="flex justify-between items-center text-sm">
                 <span className="text-gray-400">⛽ Wallet transaction (gas) fee:</span>
-                <span className="text-gray-300">{gasFee.toFixed(6)} SOL</span>
+                <span className="text-gray-300">{gasFee.toFixed(9)} SOL</span>
               </div>
               <div className="h-px bg-yellow-500/20"></div>
               <div className="flex justify-between items-center text-sm">
                 <span className="text-yellow-400 font-semibold">Total Platform Fee:</span>
-                <span className="text-yellow-400 font-semibold">{(platformFee + gasFee).toFixed(6)} SOL</span>
+                <span className="text-yellow-400 font-semibold">{(platformFee + gasFee).toFixed(9)} SOL</span>
               </div>
             </div>
 
             {/* Grand Total */}
             <div className="p-4 bg-green-900/20 border-2 border-green-500/50 rounded-lg">
               <div className="flex justify-between items-center">
-                <span className="text-lg font-bold text-green-400">💳 Total Cost:</span>
+                <span className="text-lg font-bold text-green-400 flex items-center gap-2"><CreditCard className="w-5 h-5" /> Total Cost:</span>
                 <span className="text-2xl font-bold text-green-400">{totalCost.toFixed(6)} SOL</span>
               </div>
               <p className="text-xs text-gray-400 mt-2">
@@ -374,8 +375,16 @@ export default function CreateTask() {
 
         {signature && (
           <div className="p-4 bg-green-900/30 border border-green-500/30 rounded-lg">
-            <p className="text-sm text-green-400">
-              Payment completed! Transaction: {signature.slice(0, 20)}...
+            <p className="text-sm text-green-400 flex items-center justify-between">
+              <span>Payment completed!</span>
+              <a 
+                href={`https://explorer.solana.com/tx/${signature}?cluster=devnet`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-solana-cyan hover:text-solana-blue underline ml-2"
+              >
+                View Complete Transaction
+              </a>
             </p>
           </div>
         )}

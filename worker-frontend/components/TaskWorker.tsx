@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import axios from 'axios';
 import { BACKEND_URL } from '@/lib/config';
+import { Timer, CheckCircle, DollarSign, Zap, Award } from 'lucide-react';
 
 interface TaskOption {
   id: string;
@@ -205,7 +206,7 @@ export default function TaskWorker() {
             )}
             {!canVote && (
               <div className="flex items-center gap-2 bg-yellow-900/30 border border-yellow-500/50 px-4 py-2 rounded-lg">
-                <span className="text-2xl">⏱️</span>
+                <Timer className="w-8 h-8 text-yellow-400" />
                 <div>
                   <div className="text-xs text-gray-400">Please wait</div>
                   <div className="text-xl font-bold text-yellow-400">{timeRemaining}s</div>
@@ -214,7 +215,7 @@ export default function TaskWorker() {
             )}
             {canVote && (
               <div className="flex items-center gap-2 bg-green-900/30 border border-green-500/50 px-4 py-2 rounded-lg">
-                <span className="text-2xl">✅</span>
+                <CheckCircle className="w-8 h-8 text-green-400" />
                 <div className="text-sm font-semibold text-green-400">Ready to vote!</div>
               </div>
             )}
@@ -223,11 +224,11 @@ export default function TaskWorker() {
 
         {/* Payment Structure Info */}
         <div className="bg-gradient-to-r from-green-900/20 to-yellow-900/20 border border-green-500/30 rounded-lg p-4">
-          <div className="text-sm font-semibold text-green-400 mb-3">💰 Payment Structure:</div>
+          <div className="text-sm font-semibold text-green-400 mb-3 flex items-center gap-2"><DollarSign className="w-4 h-4" /> Payment Structure:</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div className="bg-solana-darker/50 p-3 rounded-lg border border-green-500/30">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-2xl">⚡</span>
+                <Zap className="w-6 h-6 text-green-400" />
                 <span className="text-xs text-gray-400">Instant Payment</span>
               </div>
               <div className="text-xl font-bold text-green-400">
@@ -237,7 +238,7 @@ export default function TaskWorker() {
             </div>
             <div className="bg-solana-darker/50 p-3 rounded-lg border border-yellow-500/30">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-2xl">🏆</span>
+                <Award className="w-6 h-6 text-yellow-400" />
                 <span className="text-xs text-gray-400">Bonus (if you win)</span>
               </div>
               <div className="text-xl font-bold text-yellow-400">

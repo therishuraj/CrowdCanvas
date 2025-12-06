@@ -1,6 +1,7 @@
 'use client';
 
 import Appbar from '@/components/Appbar';
+import { DollarSign, Building2, Lock, Globe, Zap, Shield, BarChart3, User, Users, FileEdit, CheckCircle, Wallet, Database, ArrowDownToLine, Award, Smartphone, Lightbulb, Music, ShoppingBag, Megaphone, X } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -13,9 +14,9 @@ export default function AboutPage() {
           <h1 className="text-5xl font-bold mb-6 bg-solana-gradient bg-clip-text text-transparent">
             CrowdCanvas
           </h1>
-          <p className="text-2xl text-gray-300 mb-4">Decentralized Creative Consensus Platform</p>
+          <p className="text-2xl text-gray-300 mb-4">Solana-Powered Creative Consensus Platform</p>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto">
-            Transform creative decision-making by democratizing design choices through blockchain-powered micro-tasks.
+            Transform creative decision-making by democratizing design choices through Solana blockchain-powered micro-tasks.
           </p>
         </div>
 
@@ -47,7 +48,7 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold mb-4 text-white">For Workers</h3>
+              <h3 className="text-xl font-semibold mb-4 text-white">For Contributors</h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
@@ -81,7 +82,7 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="bg-solana-darker/50 rounded-lg p-6 border border-red-500/20">
               <div className="flex items-start gap-3">
-                <span className="text-2xl">💰</span>
+                <DollarSign className="w-8 h-8 text-red-400 flex-shrink-0" />
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-2">High Payment Fees</h3>
                   <p className="text-gray-300 text-sm">Banks charge ₹20-₹50 per transfer. PayPal takes 4.4% + fixed fees. Makes ₹5-₹50 micro-tasks economically impossible.</p>
@@ -90,7 +91,7 @@ export default function AboutPage() {
             </div>
             <div className="bg-solana-darker/50 rounded-lg p-6 border border-red-500/20">
               <div className="flex items-start gap-3">
-                <span className="text-2xl">🏢</span>
+                <Building2 className="w-8 h-8 text-red-400 flex-shrink-0" />
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-2">Platform Intermediaries</h3>
                   <p className="text-gray-300 text-sm">Amazon MTurk extracts 40% fees, Clickworker takes 30%. Platforms hold and control all worker funds.</p>
@@ -99,7 +100,7 @@ export default function AboutPage() {
             </div>
             <div className="bg-solana-darker/50 rounded-lg p-6 border border-red-500/20">
               <div className="flex items-start gap-3">
-                <span className="text-2xl">🔒</span>
+                <Lock className="w-8 h-8 text-red-400 flex-shrink-0" />
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-2">No Payment Proof</h3>
                   <p className="text-gray-300 text-sm">Can&apos;t verify if tasks are actually funded or workers were paid. All records in private databases.</p>
@@ -117,7 +118,7 @@ export default function AboutPage() {
             </div>
             <div className="bg-solana-darker/50 rounded-lg p-6 border border-red-500/20">
               <div className="flex items-start gap-3">
-                <span className="text-2xl">🌍</span>
+                <Globe className="w-8 h-8 text-red-400 flex-shrink-0" />
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-2">Cross-Border Barriers</h3>
                   <p className="text-gray-300 text-sm">International wire transfers take 3-5 days with $25-$50 fees. PayPal unavailable in 50+ countries. Currency conversion eats 3-5%.</p>
@@ -157,7 +158,7 @@ export default function AboutPage() {
             </div>
 
             <div className="bg-solana-dark-blue rounded-xl p-6 border border-solana-medium-blue">
-              <h3 className="text-2xl font-semibold mb-4 text-solana-blue">For Workers</h3>
+              <h3 className="text-2xl font-semibold mb-4 text-solana-blue">For Contributors</h3>
               <div className="space-y-4 text-gray-300">
                 <div>
                   <span className="font-bold text-white">1. Connect Wallet</span> - Use Phantom or any Solana wallet
@@ -191,14 +192,14 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-6 text-gray-300">
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <span className="text-2xl">🔒</span>
+                <Lock className="w-6 h-6 text-solana-cyan flex-shrink-0 mt-1" />
                 <div>
                   <h4 className="font-semibold text-white mb-1">Secure Payment Verification</h4>
                   <p className="text-sm">Every payment is verified on-chain before task creation - no fake tasks or scams</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-2xl">⚡</span>
+                <Zap className="w-6 h-6 text-solana-cyan flex-shrink-0 mt-1" />
                 <div>
                   <h4 className="font-semibold text-white mb-1">Instant Global Payments</h4>
                   <p className="text-sm">No bank delays or currency conversion fees - workers get paid in seconds</p>
@@ -207,14 +208,14 @@ export default function AboutPage() {
             </div>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <span className="text-2xl">🛡️</span>
+                <Shield className="w-6 h-6 text-solana-cyan flex-shrink-0 mt-1" />
                 <div>
                   <h4 className="font-semibold text-white mb-1">Wallet Authentication</h4>
                   <p className="text-sm">Sign in with your Solana wallet - no passwords, no email verification needed</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-2xl">📊</span>
+                <BarChart3 className="w-6 h-6 text-solana-cyan flex-shrink-0 mt-1" />
                 <div>
                   <h4 className="font-semibold text-white mb-1">Transparent Payments</h4>
                   <p className="text-sm">All payments (task creation & worker payouts) are verifiable on Solana blockchain</p>
@@ -234,7 +235,7 @@ export default function AboutPage() {
             {/* User Flow */}
             <div className="bg-solana-darker/50 rounded-lg p-6 border border-solana-cyan/30">
               <h3 className="text-2xl font-semibold mb-6 text-solana-cyan flex items-center gap-2">
-                <span>👤</span> Task Creator Flow
+                <User className="w-6 h-6" /> Task Creator Flow
               </h3>
               <div className="grid md:grid-cols-9 gap-3">
                 <div className="text-center">
@@ -290,7 +291,7 @@ export default function AboutPage() {
             {/* Contributor Flow */}
             <div className="bg-solana-darker/50 rounded-lg p-6 border border-solana-green/30">
               <h3 className="text-2xl font-semibold mb-6 text-solana-green flex items-center gap-2">
-                <span>👷</span> Contributor Flow
+                <Users className="w-6 h-6" /> Contributor Flow
               </h3>
               <div className="grid md:grid-cols-5 gap-4">
                 <div className="text-center">
@@ -332,7 +333,7 @@ export default function AboutPage() {
               {/* Task Creation Flow */}
               <div className="mb-8">
                 <div className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                  <span className="text-solana-cyan">📝</span> Task Creation Flow
+                  <FileEdit className="w-5 h-5 text-solana-cyan" /> Task Creation Flow
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="bg-solana-purple/10 rounded-lg p-4 border border-solana-purple/50">
@@ -380,7 +381,7 @@ export default function AboutPage() {
               {/* Worker Voting Flow */}
               <div className="mb-8">
                 <div className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                  <span className="text-solana-green">✅</span> Contributor Voting Flow
+                  <CheckCircle className="w-5 h-5 text-solana-green" /> Contributor Voting Flow
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="bg-solana-green/10 rounded-lg p-4 border border-solana-green/50">
@@ -428,7 +429,7 @@ export default function AboutPage() {
               {/* Payout Flow */}
               <div>
                 <div className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                  <span className="text-yellow-400">💸</span> Payout Flow
+                  <Wallet className="w-5 h-5 text-yellow-400" /> Payout Flow
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-yellow-900/20 rounded-lg p-4 border border-yellow-500/50">
@@ -461,7 +462,7 @@ export default function AboutPage() {
                   <div className="text-xs text-gray-400">Transaction verification & wallet signing</div>
                 </div>
                 <div className="bg-solana-darker/50 rounded-lg p-4 border border-solana-cyan/30 text-center">
-                  <div className="text-2xl mb-2">🗄️</div>
+                  <Database className="w-8 h-8 mx-auto mb-2 text-solana-cyan" />
                   <div className="text-sm font-semibold text-solana-cyan mb-1">MongoDB Atlas</div>
                   <div className="text-xs text-gray-400">Task storage & vote counting</div>
                 </div>
@@ -476,11 +477,11 @@ export default function AboutPage() {
             {/* Payment Flow */}
             <div className="bg-gradient-to-r from-green-900/20 to-yellow-900/20 rounded-lg p-6 border border-yellow-500/30">
               <h3 className="text-2xl font-semibold mb-6 text-yellow-400 flex items-center gap-2">
-                <span>💰</span> Payment Distribution
+                <DollarSign className="w-6 h-6" /> Payment Distribution
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl mb-3">📥</div>
+                  <ArrowDownToLine className="w-10 h-10 mx-auto mb-3 text-yellow-400" />
                   <div className="text-sm font-semibold text-white mb-2">User Payment</div>
                   <div className="text-xs text-gray-400 mb-3">Worker Payment + Platform Fee</div>
                   <div className="bg-solana-darker rounded p-3">
@@ -489,7 +490,7 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl mb-3">⚡</div>
+                  <Zap className="w-10 h-10 mx-auto mb-3 text-green-400" />
                   <div className="text-sm font-semibold text-white mb-2">Instant (50%)</div>
                   <div className="text-xs text-gray-400 mb-3">Paid when worker votes</div>
                   <div className="bg-solana-darker rounded p-3">
@@ -498,7 +499,7 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl mb-3">🏆</div>
+                  <Award className="w-10 h-10 mx-auto mb-3 text-yellow-400" />
                   <div className="text-sm font-semibold text-white mb-2">Bonus (50%)</div>
                   <div className="text-xs text-gray-400 mb-3">Paid if vote wins majority</div>
                   <div className="bg-solana-darker rounded p-3">
@@ -519,7 +520,7 @@ export default function AboutPage() {
           
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             <div className="bg-solana-dark-blue rounded-xl p-6 border border-solana-medium-blue text-center">
-              <div className="text-4xl mb-3">⚡</div>
+              <Zap className="w-12 h-12 mx-auto mb-3 text-solana-cyan" />
               <h3 className="text-xl font-semibold mb-3 text-white">Lightning Fast</h3>
               <p className="text-gray-300 text-sm mb-2">400ms block time</p>
               <p className="text-gray-300 text-sm mb-2">65,000 TPS</p>
@@ -527,7 +528,7 @@ export default function AboutPage() {
             </div>
 
             <div className="bg-solana-dark-blue rounded-xl p-6 border border-solana-medium-blue text-center">
-              <div className="text-4xl mb-3">💰</div>
+              <DollarSign className="w-12 h-12 mx-auto mb-3 text-green-400" />
               <h3 className="text-xl font-semibold mb-3 text-white">Ultra Low Cost</h3>
               <p className="text-gray-300 text-sm mb-2">$0.00025 per transaction</p>
               <p className="text-gray-300 text-sm mb-2">vs $2-50 on Ethereum</p>
@@ -535,7 +536,7 @@ export default function AboutPage() {
             </div>
 
             <div className="bg-solana-dark-blue rounded-xl p-6 border border-solana-medium-blue text-center">
-              <div className="text-4xl mb-3">📱</div>
+              <Smartphone className="w-12 h-12 mx-auto mb-3 text-purple-400" />
               <h3 className="text-xl font-semibold mb-3 text-white">Best UX</h3>
               <p className="text-gray-300 text-sm mb-2">75+ million wallets</p>
               <p className="text-gray-300 text-sm mb-2">Mobile-first (Phantom, Solflare)</p>
@@ -596,7 +597,7 @@ export default function AboutPage() {
             {/* With Blockchain (CrowdCanvas) */}
             <div className="bg-gradient-to-br from-green-900/30 to-solana-dark-blue rounded-xl p-6 border-2 border-green-500/50">
               <h3 className="text-xl font-semibold mb-4 text-green-400 flex items-center gap-2">
-                <span>✅</span> With Blockchain (CrowdCanvas)
+                <CheckCircle className="w-5 h-5" /> With Blockchain (CrowdCanvas)
               </h3>
               <div className="space-y-3 text-sm text-gray-300">
                 <div className="flex items-start gap-2">
@@ -641,7 +642,7 @@ export default function AboutPage() {
             {/* Without Blockchain (Traditional) */}
             <div className="bg-gradient-to-br from-red-900/30 to-solana-dark-blue rounded-xl p-6 border-2 border-red-500/50">
               <h3 className="text-xl font-semibold mb-4 text-red-400 flex items-center gap-2">
-                <span>❌</span> Without Blockchain (Traditional Platforms)
+                <X className="w-5 h-5" /> Without Blockchain (Traditional Platforms)
               </h3>
               <div className="space-y-3 text-sm text-gray-300">
                 <div className="flex items-start gap-2">
@@ -755,7 +756,7 @@ export default function AboutPage() {
           </div>
 
           <div className="bg-solana-darker/50 rounded-lg p-6 border border-yellow-500/30">
-            <h4 className="text-lg font-semibold mb-3 text-yellow-400">💡 Real-World Impact</h4>
+            <h4 className="text-lg font-semibold mb-3 text-yellow-400 flex items-center gap-2"><Lightbulb className="w-5 h-5" /> Real-World Impact</h4>
             <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-300">
               <div>
                 <strong className="text-white">On Solana (Current):</strong>
@@ -839,7 +840,7 @@ export default function AboutPage() {
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-solana-dark-blue rounded-xl p-6 border border-solana-medium-blue">
-              <div className="text-4xl mb-4">🎵</div>
+              <Music className="w-12 h-12 mb-4 text-solana-cyan" />
               <h3 className="text-xl font-semibold mb-3 text-white">Musicians & Artists</h3>
               <ul className="space-y-2 text-gray-300 text-sm">
                 <li>• Album cover selection</li>
@@ -850,7 +851,7 @@ export default function AboutPage() {
             </div>
 
             <div className="bg-solana-dark-blue rounded-xl p-6 border border-solana-medium-blue">
-              <div className="text-4xl mb-4">🛍️</div>
+              <ShoppingBag className="w-12 h-12 mb-4 text-green-400" />
               <h3 className="text-xl font-semibold mb-3 text-white">Brands & Startups</h3>
               <ul className="space-y-2 text-gray-300 text-sm">
                 <li>• Product packaging design</li>
@@ -861,7 +862,7 @@ export default function AboutPage() {
             </div>
 
             <div className="bg-solana-dark-blue rounded-xl p-6 border border-solana-medium-blue">
-              <div className="text-4xl mb-4">📢</div>
+              <Megaphone className="w-12 h-12 mb-4 text-purple-400" />
               <h3 className="text-xl font-semibold mb-3 text-white">Marketing & Events</h3>
               <ul className="space-y-2 text-gray-300 text-sm">
                 <li>• Festival/concert poster design</li>
@@ -877,7 +878,7 @@ export default function AboutPage() {
         <section className="mb-16 text-center bg-gradient-to-r from-solana-purple via-solana-dark-blue to-solana-darker rounded-xl p-12 border border-solana-medium-blue">
           <h2 className="text-3xl font-bold mb-6 text-white">Our Vision</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-6">
-            To become the global standard for creative decision-making - where every creator, from indie artists to Fortune 500 brands, validates their ideas through authentic, decentralized consensus.
+            To become the global standard for creative decision-making - where every creator, from indie artists to Fortune 500 brands, validates their ideas through authentic, Solana-powered consensus.
           </p>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             We&apos;re building the infrastructure for a future where creative feedback is instant, affordable, transparent, and fair for everyone involved.

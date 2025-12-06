@@ -7,6 +7,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { BACKEND_URL } from '@/lib/config';
 import { Connection, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { TrendingUp } from 'lucide-react';
 
 const WalletMultiButtonDynamic = dynamic(
   async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
@@ -171,9 +172,9 @@ export default function Appbar() {
             {isSignedIn && (
               <Link 
                 href="/insights"
-                className="h-10 px-4 bg-solana-dark-blue text-white rounded-lg hover:bg-solana-medium-blue transition-colors flex items-center text-sm"
+                className="h-10 px-4 bg-solana-dark-blue text-white rounded-lg hover:bg-solana-medium-blue transition-colors flex items-center gap-2 text-sm"
               >
-                📈 Insights
+                <TrendingUp className="w-4 h-4" /> Insights
               </Link>
             )}
             {publicKey && (

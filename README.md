@@ -1,6 +1,6 @@
-# CrowdCanvas - Decentralized Data Labeling Platform
+# CrowdCanvas - Solana-Powered Data Labeling Platform
 
-A blockchain-based data labeling platform built on Solana. Users create tasks and pay in SOL, workers complete tasks and earn SOL.
+A Solana blockchain-based data labeling platform. Users create tasks and pay in SOL, workers complete tasks and earn SOL.
 
 ## 🏗️ Architecture
 
