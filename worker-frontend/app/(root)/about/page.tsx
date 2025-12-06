@@ -29,19 +29,19 @@ export default function AboutPage() {
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Expensive Market Research:</strong> Traditional A/B testing costs $5,000-$50,000 per campaign</span>
+                  <span><strong>Expensive Design Testing:</strong> Traditional A/B testing for thumbnails, logos, or album covers costs ₹1L+ per campaign with agencies</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Biased Focus Groups:</strong> Small sample sizes (8-12 people) don't represent real audiences</span>
+                  <span><strong>Slow Turnaround:</strong> Market research takes 2-4 weeks. CrowdCanvas delivers results in 1-24 hours with real votes</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Slow Feedback Cycles:</strong> 2-4 weeks for traditional research vs. hours on CrowdCanvas</span>
+                  <span><strong>No Proof of Authenticity:</strong> Traditional surveys can be manipulated. Our blockchain votes are immutable and verifiable</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>No Transparent Validation:</strong> No proof that feedback is authentic or unbiased</span>
+                  <span><strong>Creative Uncertainty:</strong> Launching with the wrong design wastes ad spend. Get consensus before committing to production</span>
                 </li>
               </ul>
             </div>
@@ -51,19 +51,23 @@ export default function AboutPage() {
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Limited Micro-Task Platforms:</strong> Centralized platforms take 20-40% fees</span>
+                  <span><strong>High Platform Fees:</strong> Platforms like Amazon MTurk, Clickworker take 20-40% cuts. We charge only minimal gas + storage fees</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Payment Delays:</strong> 7-30 days to receive earnings on traditional platforms</span>
+                  <span><strong>Payment Delays:</strong> Wait 7-30 days for ₹500-₹2000 earnings. CrowdCanvas pays instantly in SOL (seconds, not weeks)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Geographic Restrictions:</strong> Most platforms unavailable in developing countries</span>
+                  <span><strong>Geographic Barriers:</strong> PayPal/Payoneer unavailable in many countries. Solana wallet works globally - just need internet</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>No Ownership:</strong> Workers have zero stake in platforms they power</span>
+                  <span><strong>Account Suspensions:</strong> Centralized platforms can freeze accounts without reason. Your Solana wallet is yours forever</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">•</span>
+                  <span><strong>Micro-Payment Impossible:</strong> Banks charge ₹20-₹50 per transaction. Solana costs ₹0.02, making ₹5-₹50 tasks viable</span>
                 </li>
               </ul>
             </div>
@@ -126,6 +130,118 @@ export default function AboutPage() {
               <div className="flex items-center gap-2">
                 <span className="text-green-400">✓</span>
                 <span>Transparent, verifiable earnings on-chain</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Architecture Flow */}
+        <section className="mb-16 bg-gradient-to-br from-solana-dark-blue to-solana-darker rounded-xl p-8 border border-solana-purple">
+          <h2 className="text-3xl font-bold mb-8 text-center bg-solana-gradient bg-clip-text text-transparent">
+            How CrowdCanvas Works
+          </h2>
+          
+          <div className="space-y-8">
+            {/* Worker Flow */}
+            <div className="bg-solana-darker/50 rounded-lg p-6 border border-solana-green/30">
+              <h3 className="text-2xl font-semibold mb-6 text-solana-green flex items-center gap-2">
+                <span>👷</span> Your Earning Journey
+              </h3>
+              <div className="grid md:grid-cols-5 gap-4">
+                <div className="text-center">
+                  <div className="bg-solana-green/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border-2 border-solana-green">
+                    <span className="text-xl">1</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white mb-2">Connect Wallet</div>
+                  <div className="text-xs text-gray-400">Sign in with Solana wallet (Phantom, Solflare, etc.)</div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="text-solana-green text-2xl">→</div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-solana-green/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border-2 border-solana-green">
+                    <span className="text-xl">2</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white mb-2">Review Task (5s)</div>
+                  <div className="text-xs text-gray-400">Study images carefully before voting</div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="text-solana-green text-2xl">→</div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-solana-green/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border-2 border-solana-green">
+                    <span className="text-xl">3</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white mb-2">Vote & Earn</div>
+                  <div className="text-xs text-gray-400">Select your favorite, earn 50% instantly</div>
+                </div>
+              </div>
+              <div className="mt-6 flex justify-center">
+                <div className="text-center bg-solana-green/10 rounded-lg p-4 border border-solana-green/30">
+                  <div className="text-sm font-semibold text-solana-green mb-2">🏆 Bonus Round!</div>
+                  <div className="text-xs text-gray-400">If your vote matches the majority, earn an additional 50% bonus</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Payment Breakdown */}
+            <div className="bg-gradient-to-r from-green-900/20 to-yellow-900/20 rounded-lg p-6 border border-yellow-500/30">
+              <h3 className="text-2xl font-semibold mb-6 text-yellow-400 flex items-center gap-2">
+                <span>💰</span> Payment Breakdown
+              </h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-solana-darker rounded-lg p-4 border border-green-500/30">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-3xl">⚡</span>
+                    <div>
+                      <div className="text-lg font-semibold text-white">Instant Payment (50%)</div>
+                      <div className="text-xs text-gray-400">Paid immediately when you vote</div>
+                    </div>
+                  </div>
+                  <div className="bg-solana-dark-blue/50 rounded p-3">
+                    <div className="text-sm text-gray-300 mb-1">Example: Task pays 0.01 SOL</div>
+                    <div className="text-2xl font-bold text-solana-green">0.005 SOL</div>
+                    <div className="text-xs text-gray-400 mt-1">Credited to your balance instantly</div>
+                  </div>
+                </div>
+                <div className="bg-solana-darker rounded-lg p-4 border border-yellow-500/30">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-3xl">🏆</span>
+                    <div>
+                      <div className="text-lg font-semibold text-white">Bonus (50%)</div>
+                      <div className="text-xs text-gray-400">Only if you win majority vote</div>
+                    </div>
+                  </div>
+                  <div className="bg-solana-dark-blue/50 rounded p-3">
+                    <div className="text-sm text-gray-300 mb-1">If your choice wins</div>
+                    <div className="text-2xl font-bold text-yellow-400">+0.005 SOL</div>
+                    <div className="text-xs text-gray-400 mt-1">Total earned: 0.01 SOL (100%)</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 bg-solana-darker/50 rounded-lg p-4 text-center border border-solana-purple/30">
+                <div className="text-sm text-gray-300">
+                  💡 <strong>Pro Tip:</strong> Choose wisely! Your earning potential doubles when you pick what the majority likes.
+                </div>
+              </div>
+            </div>
+
+            {/* Features */}
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="bg-solana-darker/50 rounded-lg p-4 border border-solana-cyan/30 text-center">
+                <div className="text-3xl mb-2">📈</div>
+                <div className="text-sm font-semibold text-white mb-2">Track Performance</div>
+                <div className="text-xs text-gray-400">View insights: total earnings, win rate, task history</div>
+              </div>
+              <div className="bg-solana-darker/50 rounded-lg p-4 border border-solana-cyan/30 text-center">
+                <div className="text-3xl mb-2">⏱️</div>
+                <div className="text-sm font-semibold text-white mb-2">5-Second Timer</div>
+                <div className="text-xs text-gray-400">Ensures you review tasks before voting</div>
+              </div>
+              <div className="bg-solana-darker/50 rounded-lg p-4 border border-solana-cyan/30 text-center">
+                <div className="text-3xl mb-2">💸</div>
+                <div className="text-sm font-semibold text-white mb-2">Instant Withdraw</div>
+                <div className="text-xs text-gray-400">Request payout anytime, funds sent on-chain</div>
               </div>
             </div>
           </div>

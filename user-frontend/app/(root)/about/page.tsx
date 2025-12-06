@@ -29,19 +29,19 @@ export default function AboutPage() {
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Expensive Market Research:</strong> Traditional A/B testing costs $5,000-$50,000 per campaign</span>
+                  <span><strong>Expensive Design Testing:</strong> Traditional A/B testing for thumbnails, logos, or album covers costs ₹1L+ per campaign with agencies</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Biased Focus Groups:</strong> Small sample sizes (8-12 people) don't represent real audiences</span>
+                  <span><strong>Slow Turnaround:</strong> Market research takes 2-4 weeks. CrowdCanvas delivers results in 1-24 hours with real votes</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Slow Feedback Cycles:</strong> 2-4 weeks for traditional research vs. hours on CrowdCanvas</span>
+                  <span><strong>No Proof of Authenticity:</strong> Traditional surveys can be manipulated. Our blockchain votes are immutable and verifiable</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>No Transparent Validation:</strong> No proof that feedback is authentic or unbiased</span>
+                  <span><strong>Creative Uncertainty:</strong> Launching with the wrong design wastes ad spend. Get consensus before committing to production</span>
                 </li>
               </ul>
             </div>
@@ -51,21 +51,78 @@ export default function AboutPage() {
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Limited Micro-Task Platforms:</strong> Centralized platforms take 20-40% fees</span>
+                  <span><strong>High Platform Fees:</strong> Platforms like Amazon MTurk, Clickworker take 20-40% cuts. We charge only minimal gas + storage fees</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Payment Delays:</strong> 7-30 days to receive earnings on traditional platforms</span>
+                  <span><strong>Payment Delays:</strong> Wait 7-30 days for ₹500-₹2000 earnings. CrowdCanvas pays instantly in SOL (seconds, not weeks)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>Geographic Restrictions:</strong> Most platforms unavailable in developing countries</span>
+                  <span><strong>Geographic Barriers:</strong> PayPal/Payoneer unavailable in many countries. Solana wallet works globally - just need internet</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">•</span>
-                  <span><strong>No Ownership:</strong> Workers have zero stake in platforms they power</span>
+                  <span><strong>Account Suspensions:</strong> Centralized platforms can freeze accounts without reason. Your Solana wallet is yours forever</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">•</span>
+                  <span><strong>Micro-Payment Impossible:</strong> Banks charge ₹20-₹50 per transaction. Solana costs ₹0.02, making ₹5-₹50 tasks viable</span>
                 </li>
               </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Current Market Gap */}
+        <section className="mb-16 bg-gradient-to-br from-red-900/20 to-solana-dark-blue rounded-xl p-8 border border-red-500/30">
+          <h2 className="text-3xl font-bold mb-6 text-red-400">Current Market Gap</h2>
+          <p className="text-gray-300 mb-6">Existing platforms fail due to payment infrastructure problems:</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-solana-darker/50 rounded-lg p-6 border border-red-500/20">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">💰</span>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">High Payment Fees</h3>
+                  <p className="text-gray-300 text-sm">Banks charge ₹20-₹50 per transfer. PayPal takes 4.4% + fixed fees. Makes ₹5-₹50 micro-tasks economically impossible.</p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-solana-darker/50 rounded-lg p-6 border border-red-500/20">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">🏢</span>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Platform Intermediaries</h3>
+                  <p className="text-gray-300 text-sm">Amazon MTurk extracts 40% fees, Clickworker takes 30%. Platforms hold and control all worker funds.</p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-solana-darker/50 rounded-lg p-6 border border-red-500/20">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">🔒</span>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">No Payment Proof</h3>
+                  <p className="text-gray-300 text-sm">Can&apos;t verify if tasks are actually funded or workers were paid. All records in private databases.</p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-solana-darker/50 rounded-lg p-6 border border-red-500/20">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">⏰</span>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Payment Delays</h3>
+                  <p className="text-gray-300 text-sm">7-30 days for settlement. Platforms hold worker earnings in escrow indefinitely.</p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-solana-darker/50 rounded-lg p-6 border border-red-500/20">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">🌍</span>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Cross-Border Barriers</h3>
+                  <p className="text-gray-300 text-sm">International wire transfers take 3-5 days with $25-$50 fees. PayPal unavailable in 50+ countries. Currency conversion eats 3-5%.</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -95,7 +152,7 @@ export default function AboutPage() {
               </div>
               <div className="mt-6 p-4 bg-solana-darker rounded-lg border border-solana-medium-blue">
                 <p className="text-sm text-gray-400">Example:</p>
-                <p className="text-white">Music artist uploads 4 album covers, sets 0.5 SOL for 100 votes (0.005 SOL per vote), gets consensus in hours with all votes immutably recorded on Solana.</p>
+                <p className="text-white">Music artist uploads 4 album covers, pays 0.1 SOL for 10 votes, workers earn 0.005 SOL instant + 0.005 SOL bonus if they pick the winner. Results in hours with payment verified on Solana.</p>
               </div>
             </div>
 
@@ -106,10 +163,10 @@ export default function AboutPage() {
                   <span className="font-bold text-white">1. Connect Wallet</span> - Use Phantom or any Solana wallet
                 </div>
                 <div>
-                  <span className="font-bold text-white">2. Vote on Tasks</span> - Choose your favorite design from options
+                  <span className="font-bold text-white">2. Review & Vote</span> - 5-second review timer ensures quality, then vote on your favorite
                 </div>
                 <div>
-                  <span className="font-bold text-white">3. Earn SOL</span> - Instant payment to your wallet
+                  <span className="font-bold text-white">3. Earn SOL</span> - Get 50% instantly + 50% bonus if you win majority
                 </div>
                 <div>
                   <span className="font-bold text-white">4. Request Payout</span> - Withdraw earnings anytime, on-chain
@@ -136,8 +193,8 @@ export default function AboutPage() {
               <div className="flex items-start gap-3">
                 <span className="text-2xl">🔒</span>
                 <div>
-                  <h4 className="font-semibold text-white mb-1">Immutable Vote Record</h4>
-                  <p className="text-sm">Can't manipulate or delete votes - every vote is permanently recorded on Solana</p>
+                  <h4 className="font-semibold text-white mb-1">Secure Payment Verification</h4>
+                  <p className="text-sm">Every payment is verified on-chain before task creation - no fake tasks or scams</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -152,15 +209,302 @@ export default function AboutPage() {
               <div className="flex items-start gap-3">
                 <span className="text-2xl">🛡️</span>
                 <div>
-                  <h4 className="font-semibold text-white mb-1">Sybil Resistance</h4>
-                  <p className="text-sm">Wallet-based identity prevents fake votes and duplicate submissions</p>
+                  <h4 className="font-semibold text-white mb-1">Wallet Authentication</h4>
+                  <p className="text-sm">Sign in with your Solana wallet - no passwords, no email verification needed</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-2xl">📊</span>
                 <div>
-                  <h4 className="font-semibold text-white mb-1">Transparent Audit Trail</h4>
-                  <p className="text-sm">Every transaction is public and verifiable on the Solana blockchain</p>
+                  <h4 className="font-semibold text-white mb-1">Transparent Payments</h4>
+                  <p className="text-sm">All payments (task creation & worker payouts) are verifiable on Solana blockchain</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Architecture Flow */}
+        <section className="mb-16 bg-gradient-to-br from-solana-dark-blue to-solana-darker rounded-xl p-8 border border-solana-purple">
+          <h2 className="text-3xl font-bold mb-8 text-center bg-solana-gradient bg-clip-text text-transparent">
+            How CrowdCanvas Works
+          </h2>
+          
+          <div className="space-y-8">
+            {/* User Flow */}
+            <div className="bg-solana-darker/50 rounded-lg p-6 border border-solana-cyan/30">
+              <h3 className="text-2xl font-semibold mb-6 text-solana-cyan flex items-center gap-2">
+                <span>👤</span> Task Creator Flow
+              </h3>
+              <div className="grid md:grid-cols-9 gap-3">
+                <div className="text-center">
+                  <div className="bg-solana-cyan/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border-2 border-solana-cyan">
+                    <span className="text-xl">1</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white mb-2">Connect Wallet</div>
+                  <div className="text-xs text-gray-400">Sign in with Solana</div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="text-solana-cyan text-2xl">→</div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-solana-cyan/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border-2 border-solana-cyan">
+                    <span className="text-xl">2</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white mb-2">Update Task Details</div>
+                  <div className="text-xs text-gray-400">Upload images, set votes</div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="text-solana-cyan text-2xl">→</div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-solana-cyan/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border-2 border-solana-cyan">
+                    <span className="text-xl">3</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white mb-2">Pay in SOL</div>
+                  <div className="text-xs text-gray-400">On-chain payment</div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="text-solana-cyan text-2xl">→</div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-solana-cyan/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border-2 border-solana-cyan">
+                    <span className="text-xl">4</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white mb-2">Create Task</div>
+                  <div className="text-xs text-gray-400">Task goes live</div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="text-solana-cyan text-2xl">→</div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-solana-cyan/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border-2 border-solana-cyan">
+                    <span className="text-xl">5</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white mb-2">Get Response</div>
+                  <div className="text-xs text-gray-400">Real-time insights</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Contributor Flow */}
+            <div className="bg-solana-darker/50 rounded-lg p-6 border border-solana-green/30">
+              <h3 className="text-2xl font-semibold mb-6 text-solana-green flex items-center gap-2">
+                <span>👷</span> Contributor Flow
+              </h3>
+              <div className="grid md:grid-cols-5 gap-4">
+                <div className="text-center">
+                  <div className="bg-solana-green/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border-2 border-solana-green">
+                    <span className="text-xl">1</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white mb-2">Connect Wallet</div>
+                  <div className="text-xs text-gray-400">Sign in with Solana wallet</div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="text-solana-green text-2xl">→</div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-solana-green/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border-2 border-solana-green">
+                    <span className="text-xl">2</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white mb-2">Wait for 60s</div>
+                  <div className="text-xs text-gray-400">Review images carefully</div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="text-solana-green text-2xl">→</div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-solana-green/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 border-2 border-solana-green">
+                    <span className="text-xl">3</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white mb-2">Vote & Earn</div>
+                  <div className="text-xs text-gray-400">Get paid instantly in SOL</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Backend Architecture Flow */}
+            <div className="bg-solana-darker/50 rounded-lg p-6 border border-solana-purple/30">
+              <h3 className="text-2xl font-semibold mb-6 text-solana-purple flex items-center gap-2">
+                <span>⚙️</span> Backend Architecture Flow
+              </h3>
+              
+              {/* Task Creation Flow */}
+              <div className="mb-8">
+                <div className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <span className="text-solana-cyan">📝</span> Task Creation Flow
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div className="bg-solana-purple/10 rounded-lg p-4 border border-solana-purple/50">
+                    <div className="text-xs text-solana-purple mb-2 font-semibold">STEP 1</div>
+                    <div className="text-sm font-bold text-white mb-3">User Payment</div>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>• Wallet signs transaction</div>
+                      <div>• SOL sent to platform wallet</div>
+                      <div>• Transaction signature returned</div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-solana-purple/10 rounded-lg p-4 border border-solana-purple/50">
+                    <div className="text-xs text-solana-purple mb-2 font-semibold">STEP 2</div>
+                    <div className="text-sm font-bold text-white mb-3">Verify On-Chain</div>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>• Solana RPC fetches transaction</div>
+                      <div>• Validates recipient & amount</div>
+                      <div>• Checks signature authenticity</div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-solana-purple/10 rounded-lg p-4 border border-solana-purple/50">
+                    <div className="text-xs text-solana-purple mb-2 font-semibold">STEP 3</div>
+                    <div className="text-sm font-bold text-white mb-3">Generate URLs</div>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>• AWS S3 presigned URLs</div>
+                      <div>• User uploads images</div>
+                      <div>• Public URLs generated</div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-solana-purple/10 rounded-lg p-4 border border-solana-purple/50">
+                    <div className="text-xs text-solana-purple mb-2 font-semibold">STEP 4</div>
+                    <div className="text-sm font-bold text-white mb-3">Store in DB</div>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>• MongoDB creates task</div>
+                      <div>• Calculates amount per worker</div>
+                      <div>• Task goes live for workers</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Worker Voting Flow */}
+              <div className="mb-8">
+                <div className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <span className="text-solana-green">✅</span> Contributor Voting Flow
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div className="bg-solana-green/10 rounded-lg p-4 border border-solana-green/50">
+                    <div className="text-xs text-solana-green mb-2 font-semibold">STEP 1</div>
+                    <div className="text-sm font-bold text-white mb-3">Fetch Tasks</div>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>• Query MongoDB for tasks</div>
+                      <div>• Filter by worker&apos;s history</div>
+                      <div>• Return available tasks</div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-solana-green/10 rounded-lg p-4 border border-solana-green/50">
+                    <div className="text-xs text-solana-green mb-2 font-semibold">STEP 2</div>
+                    <div className="text-sm font-bold text-white mb-3">Submit Vote</div>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>• Worker selects option</div>
+                      <div>• Create submission record</div>
+                      <div>• Calculate instant payment (50%)</div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-solana-green/10 rounded-lg p-4 border border-solana-green/50">
+                    <div className="text-xs text-solana-green mb-2 font-semibold">STEP 3</div>
+                    <div className="text-sm font-bold text-white mb-3">Update Balance</div>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>• Add 50% to pendingAmount</div>
+                      <div>• Increment votesReceived</div>
+                      <div>• Check if task complete</div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-solana-green/10 rounded-lg p-4 border border-solana-green/50">
+                    <div className="text-xs text-solana-green mb-2 font-semibold">STEP 4</div>
+                    <div className="text-sm font-bold text-white mb-3">Calculate Winner</div>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>• Count votes per option</div>
+                      <div>• Find majority winner</div>
+                      <div>• Pay 50% bonus to winners</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Payout Flow */}
+              <div>
+                <div className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <span className="text-yellow-400">💸</span> Payout Flow
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-yellow-900/20 rounded-lg p-4 border border-yellow-500/50">
+                    <div className="text-xs text-yellow-400 mb-2 font-semibold">STEP 1</div>
+                    <div className="text-sm font-bold text-white mb-3">Request Payout</div>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>• Worker requests withdrawal</div>
+                      <div>• Check pendingAmount balance</div>
+                      <div>• Validate wallet signature</div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-yellow-900/20 rounded-lg p-4 border border-yellow-500/50">
+                    <div className="text-xs text-yellow-400 mb-2 font-semibold">STEP 2</div>
+                    <div className="text-sm font-bold text-white mb-3">Send SOL</div>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>• Platform wallet signs tx</div>
+                      <div>• SOL sent to worker wallet</div>
+                      <div>• Record payout in MongoDB</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tech Stack Summary */}
+              <div className="mt-6 grid md:grid-cols-3 gap-4">
+                <div className="bg-solana-darker/50 rounded-lg p-4 border border-solana-cyan/30 text-center">
+                  <div className="text-2xl mb-2">⛓️</div>
+                  <div className="text-sm font-semibold text-solana-cyan mb-1">Solana Devnet</div>
+                  <div className="text-xs text-gray-400">Transaction verification & wallet signing</div>
+                </div>
+                <div className="bg-solana-darker/50 rounded-lg p-4 border border-solana-cyan/30 text-center">
+                  <div className="text-2xl mb-2">🗄️</div>
+                  <div className="text-sm font-semibold text-solana-cyan mb-1">MongoDB Atlas</div>
+                  <div className="text-xs text-gray-400">Task storage & vote counting</div>
+                </div>
+                <div className="bg-solana-darker/50 rounded-lg p-4 border border-solana-cyan/30 text-center">
+                  <div className="text-2xl mb-2">☁️</div>
+                  <div className="text-sm font-semibold text-solana-cyan mb-1">AWS S3</div>
+                  <div className="text-xs text-gray-400">Image hosting & CDN delivery</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Payment Flow */}
+            <div className="bg-gradient-to-r from-green-900/20 to-yellow-900/20 rounded-lg p-6 border border-yellow-500/30">
+              <h3 className="text-2xl font-semibold mb-6 text-yellow-400 flex items-center gap-2">
+                <span>💰</span> Payment Distribution
+              </h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="text-3xl mb-3">📥</div>
+                  <div className="text-sm font-semibold text-white mb-2">User Payment</div>
+                  <div className="text-xs text-gray-400 mb-3">Worker Payment + Platform Fee</div>
+                  <div className="bg-solana-darker rounded p-3">
+                    <div className="text-xs text-gray-400">Example:</div>
+                    <div className="text-sm text-solana-cyan">0.1 SOL (workers) + 0.002526 SOL (fees)</div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl mb-3">⚡</div>
+                  <div className="text-sm font-semibold text-white mb-2">Instant (50%)</div>
+                  <div className="text-xs text-gray-400 mb-3">Paid when worker votes</div>
+                  <div className="bg-solana-darker rounded p-3">
+                    <div className="text-xs text-gray-400">Per worker:</div>
+                    <div className="text-sm text-solana-green">0.005 SOL immediately</div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl mb-3">🏆</div>
+                  <div className="text-sm font-semibold text-white mb-2">Bonus (50%)</div>
+                  <div className="text-xs text-gray-400 mb-3">Paid if vote wins majority</div>
+                  <div className="bg-solana-darker rounded p-3">
+                    <div className="text-xs text-gray-400">Winners get:</div>
+                    <div className="text-sm text-yellow-400">+0.005 SOL bonus</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -242,6 +586,199 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Why Blockchain - Detailed Comparison */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-center bg-solana-gradient bg-clip-text text-transparent">
+            Why Blockchain? CrowdCanvas vs Traditional Platforms
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            {/* With Blockchain (CrowdCanvas) */}
+            <div className="bg-gradient-to-br from-green-900/30 to-solana-dark-blue rounded-xl p-6 border-2 border-green-500/50">
+              <h3 className="text-xl font-semibold mb-4 text-green-400 flex items-center gap-2">
+                <span>✅</span> With Blockchain (CrowdCanvas)
+              </h3>
+              <div className="space-y-3 text-sm text-gray-300">
+                <div className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <div>
+                    <strong className="text-white">Payment Verification:</strong> Every task creation verified on-chain. Cannot create fake tasks or steal user payments.
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <div>
+                    <strong className="text-white">Instant Settlement:</strong> Solana&apos;s 400ms blocks enable sub-second payouts. Workers earn in real-time, not weeks later.
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <div>
+                    <strong className="text-white">Secure Escrow System:</strong> Platform holds payments in parent wallet until task completion. Direct payouts to workers - no banks, no 7-day holds.
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <div>
+                    <strong className="text-white">Global Access:</strong> Anyone with a Solana wallet can participate. No bank account, PayPal, or credit card required.
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <div>
+                    <strong className="text-white">Transparent Costs:</strong> Gas fee (~₹0.02) + storage visible upfront. No hidden &quot;processing fees&quot; or currency conversion charges.
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <div>
+                    <strong className="text-white">Censorship Resistant:</strong> Can&apos;t freeze accounts or block users. Your wallet = your identity, forever.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Without Blockchain (Traditional) */}
+            <div className="bg-gradient-to-br from-red-900/30 to-solana-dark-blue rounded-xl p-6 border-2 border-red-500/50">
+              <h3 className="text-xl font-semibold mb-4 text-red-400 flex items-center gap-2">
+                <span>❌</span> Without Blockchain (Traditional Platforms)
+              </h3>
+              <div className="space-y-3 text-sm text-gray-300">
+                <div className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <div>
+                    <strong className="text-white">Payment Trust Issues:</strong> MTurk, Clickworker can reject completed work. Workers lose both time and earnings with no recourse.
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <div>
+                    <strong className="text-white">Delayed Payouts:</strong> 7-30 day wait for ₹500-₹2000. Platform holds YOUR money to earn interest.
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <div>
+                    <strong className="text-white">High Platform Fees:</strong> 20-40% taken by platform. Amazon MTurk charges requesters 40% on top of worker payment!
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <div>
+                    <strong className="text-white">Geographic Restrictions:</strong> PayPal unavailable in 50+ countries. Bank transfers fail across borders. Currency conversion eats 3-5%.
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <div>
+                    <strong className="text-white">Hidden Costs:</strong> &quot;Payment processing&quot; fees, withdrawal minimums (₹1000+), currency conversion, all chip away at earnings.
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <div>
+                    <strong className="text-white">Account Control:</strong> Platform can suspend/ban without warning. KYC takes days. Appeal process = black hole.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Solana vs Ethereum - Detailed Comparison */}
+        <section className="mb-16 bg-gradient-to-br from-solana-dark-blue to-solana-darker rounded-xl p-8 border border-solana-purple">
+          <h2 className="text-3xl font-bold mb-8 text-center bg-solana-gradient bg-clip-text text-transparent">
+            Why Solana Over Ethereum?
+          </h2>
+          
+          <div className="overflow-x-auto mb-6">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b-2 border-solana-purple">
+                  <th className="text-left py-4 px-4 text-white font-bold">Feature</th>
+                  <th className="text-left py-4 px-4 text-solana-green font-bold">Solana ✓</th>
+                  <th className="text-left py-4 px-4 text-gray-400 font-bold">Ethereum</th>
+                  <th className="text-left py-4 px-4 text-white font-bold">Impact on CrowdCanvas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-solana-medium-blue">
+                  <td className="py-4 px-4 text-gray-300 font-semibold">Transaction Speed</td>
+                  <td className="py-4 px-4 text-solana-green">400ms block time</td>
+                  <td className="py-4 px-4 text-gray-400">12 seconds</td>
+                  <td className="py-4 px-4 text-gray-300">Workers get paid in &lt;1 second vs 12+ seconds wait</td>
+                </tr>
+                <tr className="border-b border-solana-medium-blue">
+                  <td className="py-4 px-4 text-gray-300 font-semibold">Transaction Cost</td>
+                  <td className="py-4 px-4 text-solana-green">₹0.02 (~$0.00025)</td>
+                  <td className="py-4 px-4 text-gray-400">₹170-₹4200 ($2-$50)</td>
+                  <td className="py-4 px-4 text-gray-300">Enables ₹5-₹50 micro-tasks. Ethereum fee &gt; task payment!</td>
+                </tr>
+                <tr className="border-b border-solana-medium-blue">
+                  <td className="py-4 px-4 text-gray-300 font-semibold">Throughput (TPS)</td>
+                  <td className="py-4 px-4 text-solana-green">65,000 TPS</td>
+                  <td className="py-4 px-4 text-gray-400">15-30 TPS</td>
+                  <td className="py-4 px-4 text-gray-300">Can handle 1000s of workers voting simultaneously</td>
+                </tr>
+                <tr className="border-b border-solana-medium-blue">
+                  <td className="py-4 px-4 text-gray-300 font-semibold">Finality</td>
+                  <td className="py-4 px-4 text-solana-green">Instant (1 block)</td>
+                  <td className="py-4 px-4 text-gray-400">~15 minutes (64 blocks)</td>
+                  <td className="py-4 px-4 text-gray-300">Payments confirmed immediately, no &quot;pending&quot; anxiety</td>
+                </tr>
+                <tr className="border-b border-solana-medium-blue">
+                  <td className="py-4 px-4 text-gray-300 font-semibold">Gas Fee Model</td>
+                  <td className="py-4 px-4 text-solana-green">Fixed, predictable</td>
+                  <td className="py-4 px-4 text-gray-400">Variable, spikes 10-100x</td>
+                  <td className="py-4 px-4 text-gray-300">Users know exact cost upfront, no surprise fees</td>
+                </tr>
+                <tr className="border-b border-solana-medium-blue">
+                  <td className="py-4 px-4 text-gray-300 font-semibold">Mobile Wallet UX</td>
+                  <td className="py-4 px-4 text-solana-green">Phantom, Solflare (seamless)</td>
+                  <td className="py-4 px-4 text-gray-400">MetaMask (complex gas settings)</td>
+                  <td className="py-4 px-4 text-gray-300">Workers don&apos;t need to understand &quot;gwei&quot; or gas limits</td>
+                </tr>
+                <tr className="border-b border-solana-medium-blue">
+                  <td className="py-4 px-4 text-gray-300 font-semibold">Network Congestion</td>
+                  <td className="py-4 px-4 text-solana-green">Rare, recovers fast</td>
+                  <td className="py-4 px-4 text-gray-400">Frequent during NFT drops</td>
+                  <td className="py-4 px-4 text-gray-300">Platform stays usable even during high activity</td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-4 text-gray-300 font-semibold">Example: 100 votes</td>
+                  <td className="py-4 px-4 text-solana-green font-bold">₹2 total gas</td>
+                  <td className="py-4 px-4 text-gray-400 font-bold">₹17,000+ total gas</td>
+                  <td className="py-4 px-4 text-yellow-400 font-bold">8500x cheaper! Makes micro-tasks viable</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="bg-solana-darker/50 rounded-lg p-6 border border-yellow-500/30">
+            <h4 className="text-lg font-semibold mb-3 text-yellow-400">💡 Real-World Impact</h4>
+            <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-300">
+              <div>
+                <strong className="text-white">On Solana (Current):</strong>
+                <ul className="mt-2 space-y-1 ml-4">
+                  <li>• Task costs 0.1 SOL (₹850) for 10 votes</li>
+                  <li>• Platform fee: ₹2 (gas + storage)</li>
+                  <li>• Workers get ₹85 each instantly</li>
+                  <li>• Total cost: ₹852 (99.7% goes to workers)</li>
+                </ul>
+              </div>
+              <div>
+                <strong className="text-white">On Ethereum (Impossible):</strong>
+                <ul className="mt-2 space-y-1 ml-4">
+                  <li>• Same task would cost 0.1 ETH (₹28,000)</li>
+                  <li>• Gas fees: ₹1,700 PER transaction</li>
+                  <li>• 10 worker payouts = ₹17,000 in gas alone!</li>
+                  <li>• Total cost: ₹45,000 (60% wasted on gas)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Competitive Advantage */}
         <section className="mb-16 bg-solana-dark-blue rounded-xl p-8 border border-solana-medium-blue">
           <h2 className="text-3xl font-bold mb-6 text-solana-blue">What Makes Us Unique</h2>
@@ -250,22 +787,22 @@ export default function AboutPage() {
               <div className="flex items-start gap-3">
                 <span className="text-green-400 text-xl">✓</span>
                 <div>
-                  <h4 className="font-semibold text-white mb-1">Zero Platform Fees</h4>
-                  <p className="text-sm text-gray-300">Workers keep 100% of earnings vs. 60-80% on centralized platforms</p>
+                  <h4 className="font-semibold text-white mb-1">Minimal Platform Fees</h4>
+                  <p className="text-sm text-gray-300">Only gas (~₹0.02) + storage costs. Workers keep 99%+ vs. 60-80% on centralized platforms (MTurk charges 40%!)</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-green-400 text-xl">✓</span>
                 <div>
                   <h4 className="font-semibold text-white mb-1">Instant Payments</h4>
-                  <p className="text-sm text-gray-300">Sub-second payouts vs. 7-30 days on Amazon MTurk, Clickworker</p>
+                  <p className="text-sm text-gray-300">Sub-second payouts on Solana vs. 7-30 days on Amazon MTurk, Clickworker. No minimum withdrawal limits!</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-green-400 text-xl">✓</span>
                 <div>
                   <h4 className="font-semibold text-white mb-1">Permissionless Access</h4>
-                  <p className="text-sm text-gray-300">No KYC, no approval process - just connect your wallet and start</p>
+                  <p className="text-sm text-gray-300">No KYC, no approval delays, no account suspensions - just connect your wallet and start earning</p>
                 </div>
               </div>
             </div>
@@ -273,22 +810,22 @@ export default function AboutPage() {
               <div className="flex items-start gap-3">
                 <span className="text-green-400 text-xl">✓</span>
                 <div>
-                  <h4 className="font-semibold text-white mb-1">Transparent & Auditable</h4>
-                  <p className="text-sm text-gray-300">All votes recorded on-chain, publicly verifiable on Solana explorer</p>
+                  <h4 className="font-semibold text-white mb-1">Transparent Payments</h4>
+                  <p className="text-sm text-gray-300">Every payment verified on Solana blockchain - no hidden deductions, all transactions publicly auditable</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-green-400 text-xl">✓</span>
                 <div>
                   <h4 className="font-semibold text-white mb-1">Global by Default</h4>
-                  <p className="text-sm text-gray-300">Any wallet, any country - no geographic restrictions or currency barriers</p>
+                  <p className="text-sm text-gray-300">Any wallet, any country, any currency - no PayPal restrictions, no banking barriers, works in 180+ countries</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-green-400 text-xl">✓</span>
                 <div>
                   <h4 className="font-semibold text-white mb-1">Fast Results</h4>
-                  <p className="text-sm text-gray-300">Get feedback in hours, not weeks - perfect for agile creators</p>
+                  <p className="text-sm text-gray-300">Get consensus in 1-24 hours vs. 2-4 weeks traditional research - perfect for agile teams and tight deadlines</p>
                 </div>
               </div>
             </div>
@@ -324,13 +861,13 @@ export default function AboutPage() {
             </div>
 
             <div className="bg-solana-dark-blue rounded-xl p-6 border border-solana-medium-blue">
-              <div className="text-4xl mb-4">📱</div>
-              <h3 className="text-xl font-semibold mb-3 text-white">Content Creators</h3>
+              <div className="text-4xl mb-4">📢</div>
+              <h3 className="text-xl font-semibold mb-3 text-white">Marketing & Events</h3>
               <ul className="space-y-2 text-gray-300 text-sm">
-                <li>• YouTube thumbnail testing</li>
-                <li>• Social media banner selection</li>
-                <li>• Course cover design</li>
-                <li>• Book cover feedback</li>
+                <li>• Festival/concert poster design</li>
+                <li>• Event flyer variations</li>
+                <li>• Campaign billboard mockups</li>
+                <li>• Promotional banner selection</li>
               </ul>
             </div>
           </div>
@@ -343,7 +880,7 @@ export default function AboutPage() {
             To become the global standard for creative decision-making - where every creator, from indie artists to Fortune 500 brands, validates their ideas through authentic, decentralized consensus.
           </p>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            We're building the infrastructure for a future where creative feedback is instant, affordable, transparent, and fair for everyone involved.
+            We&apos;re building the infrastructure for a future where creative feedback is instant, affordable, transparent, and fair for everyone involved.
           </p>
         </section>
 

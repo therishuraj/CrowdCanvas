@@ -25,6 +25,8 @@ export default function TaskWorker() {
   const [submitting, setSubmitting] = useState(false);
   const [currentWallet, setCurrentWallet] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [timeRemaining, setTimeRemaining] = useState(5);
+  const [canVote, setCanVote] = useState(false);
 
   useEffect(() => {
     const walletAddress = publicKey?.toString() || null;
@@ -81,6 +83,25 @@ export default function TaskWorker() {
 
   const currentTask = availableTasks[currentIndex] || null;
 
+  // Timer effect - resets when task changes
+  useEffect(() => {
+    setTimeRemaining(5);
+    setCanVote(false);
+
+    const timer = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev <= 1) {
+          setCanVote(true);
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [currentIndex, currentTask?.id]);
+
   const handlePrevious = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
@@ -94,7 +115,7 @@ export default function TaskWorker() {
   };
 
   const handleOptionClick = async (optionId: string) => {
-    if (submitting) return;
+    if (submitting || !canVote) return;
 
     setSubmitting(true);
     try {
@@ -176,11 +197,28 @@ export default function TaskWorker() {
               </span>
             </p>
           </div>
-          {availableTasks.length > 1 && (
-            <div className="text-sm text-gray-400 bg-solana-darker px-4 py-2 rounded-lg">
-              Task {currentIndex + 1} of {availableTasks.length}
-            </div>
-          )}
+          <div className="flex items-center gap-3">
+            {availableTasks.length > 1 && (
+              <div className="text-sm text-gray-400 bg-solana-darker px-4 py-2 rounded-lg">
+                Task {currentIndex + 1} of {availableTasks.length}
+              </div>
+            )}
+            {!canVote && (
+              <div className="flex items-center gap-2 bg-yellow-900/30 border border-yellow-500/50 px-4 py-2 rounded-lg">
+                <span className="text-2xl">⏱️</span>
+                <div>
+                  <div className="text-xs text-gray-400">Please wait</div>
+                  <div className="text-xl font-bold text-yellow-400">{timeRemaining}s</div>
+                </div>
+              </div>
+            )}
+            {canVote && (
+              <div className="flex items-center gap-2 bg-green-900/30 border border-green-500/50 px-4 py-2 rounded-lg">
+                <span className="text-2xl">✅</span>
+                <div className="text-sm font-semibold text-green-400">Ready to vote!</div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Payment Structure Info */}
@@ -217,22 +255,24 @@ export default function TaskWorker() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         {currentTask.options.map((option) => (
           <div key={option.id} className="relative group">
-            <button
-              onClick={() => handleOptionClick(option.id)}
-              disabled={submitting}
-              className="relative w-full overflow-hidden rounded-lg border-2 border-solana-medium-blue hover:border-solana-purple transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+            <div className="relative w-full overflow-hidden rounded-lg border-2 border-solana-medium-blue">
               <img
                 src={option.imageUrl}
                 alt="Option"
                 className="w-full h-64 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-solana-purple/80 to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
+              <button
+                onClick={() => handleOptionClick(option.id)}
+                disabled={submitting || !canVote}
+                className={`absolute inset-0 bg-gradient-to-t from-solana-purple/80 to-transparent opacity-0 transition-all flex items-center justify-center ${
+                  canVote && !submitting ? 'group-hover:opacity-100' : ''
+                } ${!canVote || submitting ? 'cursor-not-allowed' : 'cursor-pointer hover:opacity-100'}`}
+              >
                 <span className="text-white font-bold text-xl">
-                  {submitting ? 'Submitting...' : 'Select'}
+                  {submitting ? 'Submitting...' : canVote ? 'Select' : ''}
                 </span>
-              </div>
-            </button>
+              </button>
+            </div>
             <button
               onClick={(e) => {
                 e.stopPropagation();
